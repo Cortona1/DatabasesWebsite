@@ -20,6 +20,39 @@
     <br>
     <br> 
     <h1 class = "welcome"> Welcome to the Certifications page! </h1>
+    <br>
+    <br>
+
+  <h2> Create new certificaiton form </h2>
+  <form method="post" id="myForm">
+  <input type="hidden" value="{{id}}" id="certs" name="certs">
+  <input type="hidden" value="put" id="method" name="method">
+  <label for="name">Enter the name of the certification:</label>
+  <input type="text" name="name" id="toDoName" value="{{name}}" placeholder = "Certification name">
+  <br>
+  <input type="submit" name="Add Item" value="Add Item" id="tablePost">
+  </form>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <h2> List of current ceritifications</h2>
+
+  <table >
+  <tr>
+    <th>Certifications</th>
+  </tr>
+  <tr>
+    <td>NASM</td>
+  </tr>
+  <tr>
+    <td>ACE</td>
+  </tr>
+  <tr>
+    <td>ISSA</td>
+  </tr>
+</table>
   </body>
 
 </html>

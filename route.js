@@ -34,7 +34,7 @@ app.get('/clients',function(req,res){                   // render clients page w
   res.render('clients', {});
 });
 
-app.get('/mngclients',function(req,res){                   // render manage clients page when you visit mngclients url
+app.get('/mngclients',function(req,res){                // render manage clients page when you visit mngclients url
   res.render('manageclients', {});
 });
 
