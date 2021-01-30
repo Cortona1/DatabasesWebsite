@@ -38,6 +38,10 @@ app.get('/mngclients',function(req,res){                // render manage clients
   res.render('manageclients', {});
 });
 
+app.get('/trainers',function(req,res){                // render  trainers page when you visit mngclients url
+  res.render('trainers', {});
+});
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');

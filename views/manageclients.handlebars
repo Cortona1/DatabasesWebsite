@@ -13,13 +13,63 @@
   <li><a class="active" href="/home">Home</a></li>               <!--citation: https://www.w3schools.com/css/css_navbar_horizontal.asp -->
   <li><a href="/certs">Certifications</a></li>
   <li><a href="/clients">Clients</a></li>
-  <li><a href="#about">Manage Clients</a></li>
+  <li><a href="/trainers">Trainers</a></li>
+  <li><a href="/mngclients">Manage Clients</a></li>
 
   </ul>
 
     <br>
     <br> 
     <h1 class = "welcome"> Welcome to the Clients Management page! </h1>
+
+  <h2> Assign/Update Client's trainer </h2>
+  <form method="post" id="myForm">
+  <input type="hidden" value="{{id}}" id="client" name="client">
+  <input type="hidden" value="put" id="method" name="method">
+  <label for="name">Enter the first name of your client:</label>
+  <input type="text" name="Fname" id="toDoFName" value="{{Fname}}">
+  <br>
+  <label for="reps">Enter the last name of your client:</label>
+  <input type="text" name="Lname" id ="toDoLName" value="{{Lname}}">
+  <br>
+  <label for="weight">Enter the email of your client:</label>
+  <input type="text" name="email" id="toDoEmail" value="{{email}}">
+  <br>
+  <label for="weight">Enter the trainers first name:</label>
+  <input type="text" name="email" id="toDoTFname" value="{{email}}">
+  <br>
+  <label for="weight">Enter the trainers last name:</label>
+  <input type="text" name="email" id="toDoTLname" value="{{email}}">
+  <br>
+  <label for="weight">Enter the trainers email:</label>
+  <input type="text" name="email" id="toDoTEmail" value="{{email}}">
+  <br>
+  <input type="submit" name="Add Item" value="Update" id="tablePost">
+</form>
+  </body>
+
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <h2> List of current clients</h2>
+
+  <table >
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Assigned Trainer</th>
+  </tr>
+  <tr>
+    <td>John</td>
+    <td>Joseph</td>
+    <td>JandJ@gmail.com</td>
+    <td>Boyd Romero</td>
+  </tr>
+</table>
   </body>
 
 </html>
