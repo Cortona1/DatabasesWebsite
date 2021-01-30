@@ -20,6 +20,24 @@ app.get('/',function(req,res){
 });
 
 
+app.get('/home',function(req,res){                    // render home page when you visit the home url 
+  res.render('index', {});
+});
+
+
+app.get('/certs',function(req,res){                    // render certs page when you visit certs url
+  res.render('certs', {});
+});
+
+
+app.get('/clients',function(req,res){                   // render clients page when you visit certs url
+  res.render('clients', {});
+});
+
+app.get('/mngclients',function(req,res){                   // render manage clients page when you visit mngclients url
+  res.render('manageclients', {});
+});
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');

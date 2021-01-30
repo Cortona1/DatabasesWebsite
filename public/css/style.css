@@ -1,3 +1,35 @@
 body {
 	background-color: #FFFF33;                   /* Feel like a yellow and black scheme is like standard gym esque right? */
 }
+
+
+
+												/* citation: https://www.w3schools.com/css/css_navbar_horizontal.asp */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #828385;                 /* citation: gm motor shale https://encycolorpedia.com/828385 */
+}
+
+
+.welcome {
+	text-align:center;
+}
