@@ -4,7 +4,7 @@ body {
 
 
 
-												/* citation: https://www.w3schools.com/css/css_navbar_horizontal.asp */
+												                      /* citation: https://www.w3schools.com/css/css_navbar_horizontal.asp */
 ul {
   list-style-type: none;
   margin: 0;
@@ -32,4 +32,12 @@ li a:hover {
 
 .welcome {
 	text-align:center;
+}
+
+.headerImage {                              /* citation: https://www.w3schools.com/cssref/css3_pr_flex-direction.asp */
+  display: flex;
+  flex-direction: column;                   /* citation: https://www.w3schools.com/cssref/css3_pr_align-items.asp */
+  justify-content: center;
+  align-items: center;
+  
 }
