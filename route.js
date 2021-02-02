@@ -42,6 +42,10 @@ app.get('/trainers',function(req,res){                // render  trainers page w
   res.render('trainers', {});
 });
 
+app.get('/mngtrainers',function(req,res){                // render manage trainers page when you visit mngclients url
+  res.render('managetrainers', {});
+});
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');
