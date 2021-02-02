@@ -18,15 +18,14 @@
   <li><a href="/mngtrainers">Manage Trainers</a></li>
   <li><a href="/mngplans">Manage Exercise Plans</a></li>
   <li><a href="/srchclients">Search Clients Page</a></li>
+
   </ul>
 
     <br>
     <br> 
-    <h1 class = "welcome"> Welcome to the Clients page! </h1>
-    <br>
-    <br>
+    <h1 class = "welcome"> Welcome to the Manage Exercise plans page! </h1>
 
-  <h2> Create new client form </h2>
+  <h2> Update Client's exercise plan </h2>
   <form method="post" id="myForm">
   <input type="hidden" value="{{id}}" id="client" name="client">
   <input type="hidden" value="put" id="method" name="method">
@@ -39,7 +38,9 @@
   <label for="weight">Enter the email of your client:</label>
   <input type="text" name="email" id="toDoEmail" value="{{email}}">
   <br>
-  <input type="submit" name="Add Item" value="Edit Item" id="tablePost">
+  <label for="weight">Enter the clients exercise plan:</label>
+  <input type="text" name="email" id="toDoTFname" value="{{email}}">
+  <input type="submit" name="Add Item" value="Update" id="tablePost">
 </form>
   </body>
 
@@ -56,16 +57,16 @@
     <th>First Name</th>
     <th>Last Name</th>
     <th>Email</th>
-    <th>Exercise Plan</th>
+    <th>Exercise plan</th>
     <th>Assigned Trainer</th>
   </tr>
   <tr>
     <td>John</td>
     <td>Joseph</td>
     <td>JandJ@gmail.com</td>
-    <td>Gain muslce mass</td>
-    <td>Boyd Romero </td>
-    <td><button type="button" onclick="alert('Deleted client')">Delete Client</button></td>
+    <td>Gain muscle mass </td>
+    <td>Boyd Romero</td>
+    <td><button type="button" onclick="alert('Removed Exercise Plan')">Remove exercise plan</button></td>
   </tr>
 </table>
   </body>

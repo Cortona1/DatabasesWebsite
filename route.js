@@ -46,6 +46,14 @@ app.get('/mngtrainers',function(req,res){                // render manage traine
   res.render('managetrainers', {});
 });
 
+app.get('/mngplans',function(req,res){                // render manage plans page when you visit mngclients url
+  res.render('managexerciseplans', {});
+});
+
+app.get('/srchclients',function(req,res){                // render search clients page when you visit mngclients url
+  res.render('searchclients', {});
+});
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');
