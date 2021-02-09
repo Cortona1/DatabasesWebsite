@@ -4,7 +4,10 @@ body {
 
 
 
-												                      /* citation: https://www.w3schools.com/css/css_navbar_horizontal.asp */
+												                      /* citation for header navigation bar styling:
+                                              # Date 2/01/2021
+                                              # Adapted from /or/ based on:
+                                              # Source URL: https://www.w3schools.com/css/css_navbar_horizontal.asp */
 ul {
   list-style-type: none;
   margin: 0;
@@ -26,7 +29,10 @@ li a {
 }
 
 li a:hover {
-  background-color: #828385;                 /* citation: gm motor shale https://encycolorpedia.com/828385 */
+  background-color: #828385;                 /* citation for hover color:
+                                             # Date: 2/01/2021
+                                             # Copied from:gm motor shale
+                                             # Source url: https://encycolorpedia.com/828385 */
 }
 
 
@@ -34,9 +40,14 @@ li a:hover {
 	text-align:center;
 }
 
-.headerImage {                              /* citation: https://www.w3schools.com/cssref/css3_pr_flex-direction.asp */
-  display: flex;
-  flex-direction: column;                   /* citation: https://www.w3schools.com/cssref/css3_pr_align-items.asp */
+.headerImage {                              /* citation
+                                            # Citation for the following header image style:
+                                            # Date: 2/02/2021
+                                            # Copied from /OR/ Adapted from /OR/ Based on:
+                                            # Source URL: https://www.w3schools.com/cssref/css3_pr_flex-direction.asp
+                                            https://www.w3schools.com/cssref/css3_pr_align-items.asp */ 
+  display: flex;                              
+  flex-direction: column;                   
   justify-content: center;
   align-items: center;
   
