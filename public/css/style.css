@@ -1,5 +1,5 @@
 body {
-	background-color: #FFFF33;                   /* Feel like a yellow and black scheme is like standard gym esque right? */
+	background-color: #FFFFC1;                   /* Feel like a yellow and black scheme is like standard gym esque right? */
 }
 
 
@@ -40,4 +40,9 @@ li a:hover {
   justify-content: center;
   align-items: center;
   
+}
+
+
+table, th, td {
+  border: 2px solid black;
 }
