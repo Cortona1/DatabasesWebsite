@@ -1,37 +1,42 @@
 
-  <br>
-  <br> 
-  <h1 class = "welcome"> Welcome to the Manage Exercise plans page! </h1>
+<br>
+<br> 
+<h1 class = "welcome font-xl" > Welcome to the Manage Exercise plans page! </h1>
 
-  <h2> Update Client's exercise plan </h2>
-  <form method="post" id="myForm">
+<section class="container">
+<h2 class="m-t-5"> Update Client's exercise plan </h2>
+<form method="post" id="myForm">
   <input type="hidden" value="{{id}}" id="client" name="client">
   <input type="hidden" value="put" id="method" name="method">
+  <div class="grid-12 md:grid-6-6 m-t-5">
   <label for="name">Enter the first name of your client:</label>
-  <input type="text" name="Fname" id="toDoFName" value="{{Fname}}">
-  <br>
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Fname" id="toDoFName" value="{{Fname}}" placeholder = "Client's first name">
   <label for="reps">Enter the last name of your client:</label>
-  <input type="text" name="Lname" id ="toDoLName" value="{{Lname}}">
-  <br>
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Lname" id ="toDoLName" value="{{Lname}}" placeholder = "Client's last name">
   <label for="weight">Enter the email of your client:</label>
-  <input type="text" name="email" id="toDoEmail" value="{{email}}">
-  <br>
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoEmail" value="{{email}}" placeholder = "Client's email">
   <label for="weight">Enter the clients exercise plan:</label>
-  <input type="text" name="email" id="toDoTFname" value="{{email}}">
-  <br>
-  <input type="submit" name="Add Item" value="Update" id="tablePost">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTFname" value="{{email}}" placeholder = "Client's exercise plan">
+  <span></span>
+  <div class="place-x-end">
+  <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Update" id="tablePost">
+  </div>
+  </div>
 </form>
-  </body>
+</section>
 
 
-  <br>
-  <br>
-  <br>
-  <br>
+<br>
+<br>
+<br>
+<br>
 
-  <h2> List of current clients</h2>
+<section class="grid container">
+<h2 class="font-lg place-x-center m-y-5"> List of current clients</h2>
+</section>
 
-  <table >
+<table class="center" >
+
   <tr>
     <th>First Name</th>
     <th>Last Name</th>
@@ -39,6 +44,7 @@
     <th>Exercise plan</th>
     <th>Assigned Trainer</th>
   </tr>
+
   <tr>
     <td>John</td>
     <td>Joseph</td>
