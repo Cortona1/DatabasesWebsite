@@ -1,12 +1,12 @@
 {
-  "name": "Homework6",
+  "name": "Database Website",
   "version": "1.0.0",
   "description": "Front-end for Database Site",
   "main": "route.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Anthony",
+  "author": "Anthony Corton | Aidan Hill",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",

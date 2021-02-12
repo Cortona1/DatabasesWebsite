@@ -1,7 +1,7 @@
 
   <br>
   <br> 
-  <h1 class = "welcome font-lg" > Welcome to the Clients page! </h1>
+  <h1 class = "welcome font-xl" > Welcome to the Clients page! </h1>
   <br>
   <br>
   <section class="container">
@@ -11,16 +11,16 @@
   <input type="hidden" value="put" id="method" name="method">
   <div class="grid-12 md:grid-6-6 m-t-5">
   <label for="name">Enter the first name of your client:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Fname" id="toDoFName" value="{{Fname}}">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Fname" id="toDoFName" value="{{Fname}}" placeholder = "Client's first name">
 
   <label for="reps">Enter the last name of your client:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Lname" id ="toDoLName" value="{{Lname}}">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Lname" id ="toDoLName" value="{{Lname}}" placeholder = "Client's last name">
 
   <label for="weight">Enter the email of your client:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoEmail" value="{{email}}">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoEmail" value="{{email}}" placeholder = "Client's email">
   <span></span>
-  <di class="place-x-end">
-  <input class="b-rounded b-accent text-accent-dark bg-transparent hover:raise-1-white" type="submit" name="Add Item" value="Add Client" id="tablePost">
+  <div class="place-x-end">
+  <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Add Client" id="tablePost">
   </div>
 </div>
 </form>
@@ -32,7 +32,7 @@
   <br>
   <br>
   <section class="grid container">
-  <h2 class ="font-xl place-x-center m-y-5"> List of current clients</h2>
+  <h2 class ="font-lg place-x-center m-y-5"> List of current clients</h2>
   
   </section>
   <table class="center" >
