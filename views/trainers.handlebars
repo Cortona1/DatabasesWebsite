@@ -4,40 +4,42 @@
 
 <section class="container">
 <h2 class="m-t-5"> Create a new trainer </h2>
-<form method="post" id="myForm">
-<input type="hidden" value="{{id}}" id="client" name="client">
-<input type="hidden" value="put" id="method" name="method">
-<div class="grid-12 md:grid-6-6 m-t-5"
-<label for="weight">Enter the trainers first name:</label>
-<input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTFname" value="{{email}}" placeholder = "Trainer's first name">
-<label for="weight">Enter the trainers last name:</label>
-<input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTLname" value="{{email}}" placeholder = "Trainer's last name">
-<label for="weight">Enter the trainers email:</label>
-<input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTEmail" value="{{email}}" placeholder = "Trainer's email">
-<span></span>
-<div class="place-x-end">
-<input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Add Trainer" id="tablePost">
-</form>
-</div>
-</div>
+  <form method="post" id="myForm">
+  <input type="hidden" value="{{id}}" id="client" name="client">
+  <input type="hidden" value="put" id="method" name="method">
+  <div class="grid-12 md:grid-6-6 m-t-5"
+  <label for="weight">Enter the trainers first name:</label>
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTFname" value="{{email}}" placeholder = "Trainer's first name">
+  <label for="weight">Enter the trainers last name:</label>
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTLname" value="{{email}}" placeholder = "Trainer's last name">
+  <label for="weight">Enter the trainers email:</label>
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTEmail" value="{{email}}" placeholder = "Trainer's email">
+  <span></span>
+  <div class="place-x-end">
+  <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Add Trainer" id="tablePost">
+  </form>
+  </div>
+  </div>
 </section>
 
 
-  <br>
-  <br>
-  <br>
-  <br>
+<br>
+<br>
+<br>
+<br>
 
-  <section class="grid container">
-  <h2 class="font-lg place-x-center m-y-5"> List of current Trainers</h2>
-  </section>
+<section class="grid container">
+<h2 class="font-lg place-x-center m-y-5"> List of current Trainers</h2>
+</section>
 
-  <table class="center" >
+<table class="center" >
+
   <tr>
     <th>First Name</th>
     <th>Last Name</th>
     <th>Email</th>
   </tr>
+  
   <tr>
     <td>Boyd</td>
     <td>Romero</td>
