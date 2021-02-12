@@ -67,6 +67,6 @@ app.use(function(err, req, res, next){
 });
 
 app.listen(app.get('port'), function(){
-  console.log('flip3.engr.oregonstate.edu:' + app.get('port') + '; press Ctrl-C to terminate.');
+  console.log('localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
   
 });
