@@ -1,10 +1,11 @@
 {
-  "name": "Database Website",
+  "name": "DatabaseWebsite",
   "version": "1.0.0",
   "description": "Front-end for Database Site",
   "main": "route.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon route.js"
   },
   "author": "Anthony Corton | Aidan Hill",
   "license": "ISC",

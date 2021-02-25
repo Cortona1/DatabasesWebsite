@@ -16,9 +16,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+const insertQuery='INSERT INTO workouts (`name`, `reps`, `weight`, `date`, `lbs`) VALUES (?,?,?,?,?)';
 const getAllCerts='SELECT * FROM Certifications';
 const getAllTrainers = 'SELECT * FROM Trainers';
 const getTrainersWithCerts = 'SELECT Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers INNER JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID INNER JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
+const insertCert = 'insert into certifications SET CertTitle = ?';
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -30,19 +32,27 @@ app.get('/home',function(req,res){                    // render home page when y
 });
 
 
-app.get('/certs',function(req,res, next){                    // render certs page when you visit certs url
+app.get('/certs',certPage);
+
+
+function certPage(req,res){
   var context = {};
   mysql.pool.query(getAllCerts, function(err, rows, fields){ //homework6 project page
     if (err){
-      next(err);
+      res.status(500).send("ServerError");
       return;
     }
-    context.results = JSON.stringify(rows);
+    context.results = rows;
     console.log(context);
     res.render('certs', context)
-  });
-});
+  }); 
+}
 
+app.post('/certs', function(req, res){
+    mysql.pool.query(insertCert, [req.body.name], function(err,rows,fields){
+    certPage(req,res);
+    })
+})
 
 app.get('/clients',function(req,res){                   // render clients page when you visit certs url
   res.render('clients', {});

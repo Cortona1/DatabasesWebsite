@@ -7,8 +7,6 @@
 <section class="container">
 <h2> Create new certification form </h2>
   <form method="post" id="myForm">
-  <input type="hidden" value="{{id}}" id="certs" name="certs">
-  <input type="hidden" value="put" id="method" name="method">
   <div class="grid-2 md:grid-6-6 m-t-5">
   <label for="name">Enter the name of the certification:</label>
   <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="name" id="toDoName" value="{{name}}" placeholder = "Certification name">
@@ -29,52 +27,23 @@
 <h2 class = "font-lg place-x-center m-y-5"> List of current certifications</h2>
 </section>
 
-<table class="center" >
 
-  <tr>
-    <th>Certifications</th>
-  </tr>
 
-  <tr>
-    <td>NASM </td>
-    <td><button type="button" onclick="alert('Updated Certification')">Update Certification</button> <button type="button" onclick="alert('Deleted Certification')">Delete Certification</button></td>
-  </tr>
+<table class="center">
+<tr>
+  <th>Certificatins</th>
+  <th></th>
+<tr>
 
-  <tr>
-    <td>ACE</td>
-    <td><button type="button" onclick="alert('Updated Certification')">Update Certification</button> <button type="button" onclick="alert('Deleted Certification')">Delete Certification</button></td>
-  </tr>
 
-  <tr>
-    <td>ISSA</td>
-    <td><button type="button" onclick="alert('Updated Certification')">Update Certification</button> <button type="button" onclick="alert('Deleted Certification')">Delete Certification</button></td>
-  </tr>
+{{#each results}} 
+<tr>
+    <td> {{this.CertTitle}} </td>
+    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" href="/certs?deleteCertification={{this.CertID}}"> Delete Certification</a> </td>
+</tr>
+{{/each}}
 
 </table>
-
-
-
-
-<h1>{{results}}</h1>
-
-
-{{#each results}}
-<h1> {{CertTitle}} </h1>
-{{/each}}
-
-{{#each results}}
-<h1> {{CertID}} </h1>
-{{/each}}
-
-{{#each results}}
-<h1> {{this.CertID}} </h1>
-{{/each}}
-
-
-
-{{#each CertID}}
-<h1>this </h1>
-{{/each}}
 
 
 
