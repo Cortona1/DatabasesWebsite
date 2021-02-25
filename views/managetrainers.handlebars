@@ -72,3 +72,27 @@
 
 
 <h1>{{results}}</h1>
+
+
+
+<table class="center">
+
+<tr>
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>Email</th>
+  <th>Certification</th>
+  <th></th>
+<tr>
+
+
+{{#each results}} 
+<tr>
+    <td> {{this.TrainerFN}} </td>
+    <td> {{this.TrainerLN}} </td>
+    <td> {{this.TrainerEmail}} </td>
+    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" href="/certs?deleteCertification={{this.CertID}}"> Delete Certification</a> </td>
+</tr>
+{{/each}}
+
+</table>

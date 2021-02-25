@@ -80,7 +80,8 @@ function trainerPage(req,res){
 
 
 app.post('/trainers', function(req, res){
-    mysql.pool.query(insertTrainer, [req.body.TrainerLN], [req.body.TrainerFN],[req.body.TrainerEmail], function(err,rows,fields){
+    console.log(req.body);
+    mysql.pool.query(insertTrainer, [req.body.TrainerLN, req.body.TrainerFN,req.body.TrainerEmail], function(err,rows,fields){
     trainerPage(req,res);
     })
 })
