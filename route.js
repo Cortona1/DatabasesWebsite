@@ -82,7 +82,7 @@ app.post('/clients', function(req, res) {
         return;
       }
       context.results = rows;
-      console.log("this here is my motherfucking " + JSON.stringify(context));
+      console.log(JSON.stringify(context));
       res.render('clients', context);
     });
     if (err) {
