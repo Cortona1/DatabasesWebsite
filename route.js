@@ -1,4 +1,6 @@
 var express = require('express');
+var mysql = require('./dbcon.js');
+
 
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
@@ -14,6 +16,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+const getAllQuery='SELECT * FROM Certifications';
+
+
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -25,8 +30,17 @@ app.get('/home',function(req,res){                    // render home page when y
 });
 
 
-app.get('/certs',function(req,res){                    // render certs page when you visit certs url
-  res.render('certs', {});
+app.get('/certs',function(req,res, next){                    // render certs page when you visit certs url
+  var context = {};
+  mysql.pool.query(getAllQuery, function(err, rows, fields){ //homework6 project page
+    if (err){
+      next(err);
+      return;
+    }
+    context.results = JSON.stringify(rows);
+    console.log(context);
+    res.render('certs', {context})
+  });
 });
 
 
