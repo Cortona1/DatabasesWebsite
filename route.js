@@ -39,7 +39,7 @@ app.get('/certs',function(req,res, next){                    // render certs pag
     }
     context.results = JSON.stringify(rows);
     console.log(context);
-    res.render('certs', {context})
+    res.render('certs', context)
   });
 });
 

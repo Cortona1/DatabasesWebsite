@@ -53,19 +53,28 @@
 </table>
 
 
-<h1>{{{context.results}}}</h1>
+
+
 <h1>{{results}}</h1>
-<h1>{{{results.1.CertID}}}</h1>
 
 
+{{#each results}}
+<h1> {{this}} </h1>
+{{/each}}
 
-
-{{{#each results}}}
+{{#each results}}
 <h1> {{CertID}} </h1>
-{{{/each}}}
-
+{{/each}}
 
 {{#each results}}
 <h1> {{this.CertID}} </h1>
 {{/each}}
+
+
+
+{{#each CertID}}
+<h1>this </h1>
+{{/each}}
+
+
 
