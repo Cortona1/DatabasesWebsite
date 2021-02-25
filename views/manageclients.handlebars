@@ -48,7 +48,17 @@
     <th>Assigned Trainer</th>
   </tr>
 
+  {{#each results}}
   <tr>
+    <td>{{ClientFN}}</td>
+    <td>{{ClientLN}}</td>
+    <td>{{ClientEmail}}</td>
+    <td>{{TrainerFN}} {{TrainerLN}}</td>
+    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" href="/certs?deleteClient={{this.ClientID}}"> Delete Client</a> </td>
+  </tr>
+  {{/each}}
+
+  {{!-- <tr>
     <td>John</td>
     <td>Joseph</td>
     <td>JandJ@gmail.com</td>
@@ -70,6 +80,6 @@
     <td>TandB@gmail.com</td>
     <td>Josh Kohl</td>
     <td><button type="button" onclick="alert('Removed Assigned Trainer')">Remove Trainer</button></td>
-  </tr>
+  </tr> --}}
 
 </table>

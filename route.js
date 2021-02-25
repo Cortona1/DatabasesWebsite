@@ -26,7 +26,6 @@ const insertCert = 'INSERT INTO Certifications SET CertTitle = ?';
 const insertTrainer = 'INSERT INTO `Trainers` (`TrainerLN`, `TrainerFN`, `TrainerEmail`) VALUES (?,?,?)';
 const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from Certifications WHERE CertTitle = ?));'
 
-
 app.get('/',function(req,res){
   res.render('index', {});
 });
@@ -93,8 +92,21 @@ app.post('/clients', function(req, res) {
 });
 
 app.get('/mngclients',function(req,res){                // render manage clients page when you visit mngclients url
-  res.render('manageclients', {});
+  var context = {};
+  mysql.pool.query(getAllClients, function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+    context.results = rows;
+    console.log(context)
+    res.render('manageclients', context);
+  });
 });
+
+app.post('/mngclients', function(req, res) {
+  console.log(req.body);
+})
 
 app.get('/trainers',trainerPage);
 
@@ -160,7 +172,16 @@ app.post('/mngtrainers', function(req, res){
 
 
 app.get('/mngplans',function(req,res){                // render manage plans page when you visit mngclients url
-  res.render('managexerciseplans', {});
+  var context = {};
+  mysql.pool.query(getAllClients, function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+    context.results = rows;
+    console.log(context);
+    res.render('managexerciseplans', context);
+  });
 });
 
 app.get('/srchclients',function(req,res){                // render search clients page when you visit mngclients url
