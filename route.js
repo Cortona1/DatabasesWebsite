@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-const getAllQuery='SELECT * FROM Certifications';
-
+const getAllCerts='SELECT * FROM Certifications';
+const getAllTrainers = 'SELECT * FROM Trainers';
 
 
 app.get('/',function(req,res){
@@ -32,7 +32,7 @@ app.get('/home',function(req,res){                    // render home page when y
 
 app.get('/certs',function(req,res, next){                    // render certs page when you visit certs url
   var context = {};
-  mysql.pool.query(getAllQuery, function(err, rows, fields){ //homework6 project page
+  mysql.pool.query(getAllCerts, function(err, rows, fields){ //homework6 project page
     if (err){
       next(err);
       return;
@@ -53,7 +53,16 @@ app.get('/mngclients',function(req,res){                // render manage clients
 });
 
 app.get('/trainers',function(req,res){                // render  trainers page when you visit mngclients url
-  res.render('trainers', {});
+  var context = {};
+  mysql.pool.query(getAllTrainers, function(err, rows, fields){ 
+    if (err){
+      next(err);
+      return;
+    }
+    context.results = JSON.stringify(rows);
+    console.log(context);
+    res.render('trainers', context)
+  });
 });
 
 app.get('/mngtrainers',function(req,res){                // render manage trainers page when you visit mngclients url
