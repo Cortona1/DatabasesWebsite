@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 const getAllCerts='SELECT * FROM Certifications';
 const getAllTrainers = 'SELECT * FROM Trainers';
-
+const getTrainersWithCerts = 'SELECT Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers INNER JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID INNER JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -66,7 +66,16 @@ app.get('/trainers',function(req,res){                // render  trainers page w
 });
 
 app.get('/mngtrainers',function(req,res){                // render manage trainers page when you visit mngclients url
-  res.render('managetrainers', {});
+  var context = {};
+  mysql.pool.query(getTrainersWithCerts, function(err, rows, fields){ 
+    if (err){
+      next(err);
+      return;
+    }
+    context.results = JSON.stringify(rows);
+    console.log(context);
+    res.render('managetrainers', context)
+  });
 });
 
 app.get('/mngplans',function(req,res){                // render manage plans page when you visit mngclients url
