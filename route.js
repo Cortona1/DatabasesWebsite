@@ -21,9 +21,9 @@ const getAllCerts='SELECT * FROM Certifications';
 const getAllTrainers = 'SELECT * FROM Trainers';
 const getAllClients = 'SELECT * FROM Clients INNER JOIN Trainers ON Clients.TrainerID = Trainers.TrainerID INNER JOIN ClientPlans ON Clients.ClientID = ClientPlans.ClientID INNER JOIN ExercisePlans ON ClientPlans.ExerciseID = ExercisePlans.ExerciseID';
 const getTrainersWithCerts = 'SELECT Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers INNER JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID INNER JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
-const insertCert = 'insert into certifications SET CertTitle = ?';
-const insertTrainer = 'INSERT INTO `trainers` (`TrainerLN`, `TrainerFN`, `TrainerEmail`) VALUES (?,?,?)';
-const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from certifications WHERE CertTitle = ?));'
+const insertCert = 'INSERT INTO Certifications SET CertTitle = ?';
+const insertTrainer = 'INSERT INTO `Trainers` (`TrainerLN`, `TrainerFN`, `TrainerEmail`) VALUES (?,?,?)';
+const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from Certifications WHERE CertTitle = ?));'
 
 
 app.get('/',function(req,res){
