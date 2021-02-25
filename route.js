@@ -21,6 +21,7 @@ const getAllCerts='SELECT * FROM Certifications';
 const getAllTrainers = 'SELECT * FROM Trainers';
 const getTrainersWithCerts = 'SELECT Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers INNER JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID INNER JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
 const insertCert = 'insert into certifications SET CertTitle = ?';
+const insertTrainer = 'INSERT INTO `trainers` (`TrainerLN`, `TrainerFN`, `TrainerEmail`) VALUES (?,?,?)';
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -62,18 +63,27 @@ app.get('/mngclients',function(req,res){                // render manage clients
   res.render('manageclients', {});
 });
 
-app.get('/trainers',function(req,res){                // render  trainers page when you visit mngclients url
+app.get('/trainers',trainerPage);
+
+function trainerPage(req,res){
   var context = {};
-  mysql.pool.query(getAllTrainers, function(err, rows, fields){ 
+  mysql.pool.query(getAllTrainers, function(err, rows, fields){ //homework6 project page
     if (err){
-      next(err);
+      res.status(500).send("ServerError");
       return;
     }
-    context.results = JSON.stringify(rows);
+    context.results = rows;
     console.log(context);
-    res.render('trainers', context)
-  });
-});
+    res.render('trainers', context);
+  }); 
+}
+
+
+app.post('/trainers', function(req, res){
+    mysql.pool.query(insertTrainer, [req.body.TrainerLN], [req.body.TrainerFN],[req.body.TrainerEmail], function(err,rows,fields){
+    trainerPage(req,res);
+    })
+})
 
 app.get('/mngtrainers',function(req,res){                // render manage trainers page when you visit mngclients url
   var context = {};

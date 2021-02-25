@@ -5,15 +5,13 @@
 <section class="container">
 <h2 class="m-t-5"> Create a new trainer </h2>
   <form method="post" id="myForm">
-  <input type="hidden" value="{{id}}" id="client" name="client">
-  <input type="hidden" value="put" id="method" name="method">
   <div class="grid-12 md:grid-6-6 m-t-5"
   <label for="weight">Enter the trainers first name:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTFname" value="{{email}}" placeholder = "Trainer's first name">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTFname" value="{{TrainerFN}}" placeholder = "Trainer's first name">
   <label for="weight">Enter the trainers last name:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTLname" value="{{email}}" placeholder = "Trainer's last name">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTLname" value="{{TrainerLN}}" placeholder = "Trainer's last name">
   <label for="weight">Enter the trainers email:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTEmail" value="{{email}}" placeholder = "Trainer's email">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" id="toDoTEmail" value="{{TrainerEmail}}" placeholder = "Trainer's email">
   <span></span>
   <div class="place-x-end">
   <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Add Trainer" id="tablePost">
@@ -32,35 +30,23 @@
 <h2 class="font-lg place-x-center m-y-5"> List of current Trainers</h2>
 </section>
 
-<table class="center" >
+<table class="center">
 
-  <tr>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Email</th>
-  </tr>
-  
-  <tr>
-    <td>Boyd</td>
-    <td>Romero</td>
-    <td>bromero@gmail.com</td>
-    <td><button type="button" onclick="alert('Updated Certification')">Update Trainer</button> <button type="button" onclick="alert('Deleted Certification')">Delete Trainer</button></td>
-  </tr>
+<tr>
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>Email</th>
+  <th></th>
+<tr>
 
-  <tr>
-    <td>Christina</td>
-    <td>Rodriguez</td>
-    <td>crodriguez@gmail.com</td>
-    <td><button type="button" onclick="alert('Updated Certification')">Update Trainer</button> <button type="button" onclick="alert('Deleted Certification')">Delete Trainer</button></td>
-  </tr>
 
-  <tr>
-    <td>Josh</td>
-    <td>Kohl</td>
-    <td>jkhol@gmail.com</td>
-    <td><button type="button" onclick="alert('Updated Certification')">Update Trainer</button> <button type="button" onclick="alert('Deleted Certification')">Delete Trainer</button></td>
-  </tr>
+{{#each results}} 
+<tr>
+    <td> {{this.TrainerFN}} </td>
+    <td> {{this.TrainerLN}} </td>
+    <td> {{this.TrainerEmail}} </td>
+    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" href="/certs?deleteCertification={{this.CertID}}"> Delete Certification</a> </td>
+</tr>
+{{/each}}
 
 </table>
-
-<h1>{{results}}</h1>
