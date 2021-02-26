@@ -31,6 +31,7 @@ const insertClientTrainer = 'UPDATE Clients SET TrainerID = (SELECT TrainerID fr
 const searchClientFN = 'SELECT * FROM Clients WHERE ClientFN = ?';
 const searchClientLN = 'SELECT * FROM Clients WHERE ClientLN = ?';
 const searchClientEmail = 'SELECT * FROM Clients WHERE ClientEmail = ?';
+const searchClientTrainer = 'SELECT * FROM Clients WHERE Clients.TrainerID = (SELECT TrainerID FROM Trainers WHERE TrainerFN = ? and TrainerLN = ?)';
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -277,6 +278,21 @@ app.post('/srchclients', function(req, res){
         console.log(context);
         res.render('searchclients', context);
   });}
+
+  if ((count == 3) && ((Object.keys(req.body)[0]) === "TrainerFN") && ((Object.keys(req.body)[1]) === "TrainerLN")){                            // check if they searched by Trainer info
+        console.log("Sucess!");
+        var context = {};
+        mysql.pool.query(searchClientTrainer, [req.body.TrainerFN, req.body.TrainerLN], function(err,rows,fields){
+          if (err) {
+            next(err);
+            return;
+          }
+        context.results = rows;
+        console.log("This is context")
+        console.log(context);
+        res.render('searchclients', context);
+  });}
+
 })
 
 app.get('/srchclients',function(req,res){                // render search clients page when you visit mngclients url
