@@ -25,6 +25,8 @@ const getTrainersWithCerts = 'SELECT Trainers.TrainerFN, Trainers.TrainerLN, Tra
 const insertCert = 'INSERT INTO Certifications SET CertTitle = ?';
 const insertTrainer = 'INSERT INTO `Trainers` (`TrainerLN`, `TrainerFN`, `TrainerEmail`) VALUES (?,?,?)';
 const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from Certifications WHERE CertTitle = ?));'
+const insertExercisePlan = 'INSERT INTO ExercisePlans (ExerciseGoal) VALUES (?)';
+const insertClientPlan = 'INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES ((SELECT ClientID from Clients WHERE ClientLN = ? AND ClientFN = ?),(SELECT ExerciseID FROM ExercisePlans WHERE ExerciseGoal = ?))';
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -160,6 +162,18 @@ function TrainerCertPage(req,res){
 }
 
 
+function ManagePlanPage(req,res){
+  var context = {};
+  mysql.pool.query(getAllClients, function(err, rows, fields){ //homework6 project page
+    if (err){
+      res.status(500).send("ServerError");
+      return;
+    }
+    context.results = rows;
+    console.log(context);
+    res.render('managexerciseplans', context);
+  });
+}
 
 
 app.post('/mngtrainers', function(req, res){
@@ -169,7 +183,14 @@ app.post('/mngtrainers', function(req, res){
     });
 })
 
-
+app.post('/mngplans', function(req, res){
+    console.log(req.body);
+    mysql.pool.query(insertExercisePlan, [req.body.ExerciseGoal], function(err,rows,fields){
+    });
+    mysql.pool.query(insertClientPlan, [req.body.ClientLN,req.body.ClientFN,req.body.ExerciseGoal], function(err,rows,fields){
+    ManagePlanPage(req,res)
+    });
+});
 
 app.get('/mngplans',function(req,res){                // render manage plans page when you visit mngclients url
   var context = {};
