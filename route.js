@@ -21,6 +21,8 @@ const getAllCerts='SELECT * FROM Certifications';
 const getAllTrainers = 'SELECT * FROM Trainers';
 const getAllClients = 'SELECT * FROM Clients LEFT JOIN Trainers ON Clients.TrainerID = Trainers.TrainerID LEFT JOIN ClientPlans ON Clients.ClientID = ClientPlans.ClientID LEFT JOIN ExercisePlans ON ClientPlans.ExerciseID = ExercisePlans.ExerciseID';
 const insertClient = 'INSERT INTO Clients (`ClientFN`, `ClientLN`, `ClientEmail`) VALUES (?, ?, ?)';
+const deleteClientPlan = 'DELETE FROM ClientPlans WHERE ClientPlans.ClientID = ?';
+const deleteClient = 'DELETE FROM Clients WHERE Clients.ClientID = ?';
 const getTrainersWithCerts = 'SELECT Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers INNER JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID INNER JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
 const insertCert = 'INSERT INTO Certifications SET CertTitle = ?';
 const insertTrainer = 'INSERT INTO `Trainers` (`TrainerLN`, `TrainerFN`, `TrainerEmail`) VALUES (?,?,?)';
@@ -97,6 +99,25 @@ app.post('/clients', function(req, res) {
     }
   });
 });
+
+app.delete('/clients/:id', function(req, res) {
+  var context = {};
+  mysql.pool.query(deleteClientPlan, [req.params.id], function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+    console.log('deleted clientplan ' + req.params.id)
+    mysql.pool.query(deleteClient, [req.params.id], function(err, rows, fields) {
+      if (err) {
+        console.log(JSON.stringify(err));
+        next(err);
+        return;
+      }
+      res.render('clients', context);
+    });
+  });
+})
 
 app.get('/mngclients',function(req,res){                // render manage clients page when you visit mngclients url
   var context = {};
