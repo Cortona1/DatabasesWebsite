@@ -27,6 +27,7 @@ const insertTrainer = 'INSERT INTO `Trainers` (`TrainerLN`, `TrainerFN`, `Traine
 const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from Certifications WHERE CertTitle = ?));'
 const insertExercisePlan = 'INSERT INTO ExercisePlans (ExerciseGoal) VALUES (?)';
 const insertClientPlan = 'INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES ((SELECT ClientID from Clients WHERE ClientLN = ? AND ClientFN = ?),(SELECT ExerciseID FROM ExercisePlans WHERE ExerciseGoal = ?))';
+const insertClientTrainer = 'UPDATE Clients SET TrainerID = (SELECT TrainerID from Trainers WHERE TrainerLN =? AND TrainerFN = ? AND TrainerEmail = ?) WHERE (ClientEmail = ?)';
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -106,8 +107,25 @@ app.get('/mngclients',function(req,res){                // render manage clients
   });
 });
 
+function manageTrainersPage(req,res){
+  var context = {};
+  mysql.pool.query(getAllClients, function(err, rows, fields){ //homework6 project page
+    if (err){
+      res.status(500).send("ServerError");
+      return;
+    }
+    context.results = rows;
+    console.log(context);
+    res.render('manageclients', context);
+  }); 
+}
+
 app.post('/mngclients', function(req, res) {
   console.log(req.body);
+  mysql.pool.query(insertClientTrainer, [req.body.TrainerLN, req.body.TrainerFN,req.body.TrainerEmail, req.body.ClientEmail], function(err,rows,fields){
+  manageTrainersPage(req,res);
+  })
+
 })
 
 app.get('/trainers',trainerPage);
