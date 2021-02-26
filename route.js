@@ -29,6 +29,8 @@ const insertExercisePlan = 'INSERT INTO ExercisePlans (ExerciseGoal) VALUES (?)'
 const insertClientPlan = 'INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES ((SELECT ClientID from Clients WHERE ClientLN = ? AND ClientFN = ?),(SELECT ExerciseID FROM ExercisePlans WHERE ExerciseGoal = ?))';
 const insertClientTrainer = 'UPDATE Clients SET TrainerID = (SELECT TrainerID from Trainers WHERE TrainerLN =? AND TrainerFN = ? AND TrainerEmail = ?) WHERE (ClientEmail = ?)';
 const searchClientFN = 'SELECT * FROM Clients WHERE ClientFN = ?';
+const searchClientLN = 'SELECT * FROM Clients WHERE ClientLN = ?';
+const searchClientEmail = 'SELECT * FROM Clients WHERE ClientEmail = ?';
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -224,8 +226,57 @@ app.get('/mngplans',function(req,res){                // render manage plans pag
   });
 });
 
+
+
+
+
 app.post('/srchclients', function(req, res){
     console.log(req.body);
+
+    var count = Object.keys(req.body).length;
+    console.log(count);
+
+    if ((count == 2) && ((Object.keys(req.body)[0]) === "ClientFN")){                            // check if they searched by client name
+        console.log("Sucess!");
+        var context = {};
+        mysql.pool.query(searchClientFN, [req.body.ClientFN], function(err,rows,fields){
+          if (err) {
+            next(err);
+            return;
+          }
+        context.results = rows;
+        console.log("This is context")
+        console.log(context);
+        res.render('searchclients', context);
+  });}
+
+  if ((count == 2) && ((Object.keys(req.body)[0]) === "ClientLN")){                            // check if they searched by client last name
+        console.log("Sucess!");
+        var context = {};
+        mysql.pool.query(searchClientLN, [req.body.ClientLN], function(err,rows,fields){
+          if (err) {
+            next(err);
+            return;
+          }
+        context.results = rows;
+        console.log("This is context")
+        console.log(context);
+        res.render('searchclients', context);
+  });}
+
+  if ((count == 2) && ((Object.keys(req.body)[0]) === "ClientEmail")){                            // check if they searched by client email
+        console.log("Sucess!");
+        var context = {};
+        mysql.pool.query(searchClientEmail, [req.body.ClientEmail], function(err,rows,fields){
+          if (err) {
+            next(err);
+            return;
+          }
+        context.results = rows;
+        console.log("This is context")
+        console.log(context);
+        res.render('searchclients', context);
+  });}
 })
 
 app.get('/srchclients',function(req,res){                // render search clients page when you visit mngclients url
