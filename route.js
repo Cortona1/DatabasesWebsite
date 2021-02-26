@@ -28,6 +28,7 @@ const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES
 const insertExercisePlan = 'INSERT INTO ExercisePlans (ExerciseGoal) VALUES (?)';
 const insertClientPlan = 'INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES ((SELECT ClientID from Clients WHERE ClientLN = ? AND ClientFN = ?),(SELECT ExerciseID FROM ExercisePlans WHERE ExerciseGoal = ?))';
 const insertClientTrainer = 'UPDATE Clients SET TrainerID = (SELECT TrainerID from Trainers WHERE TrainerLN =? AND TrainerFN = ? AND TrainerEmail = ?) WHERE (ClientEmail = ?)';
+const searchClientFN = 'SELECT * FROM Clients WHERE ClientFN = ?';
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -223,9 +224,15 @@ app.get('/mngplans',function(req,res){                // render manage plans pag
   });
 });
 
+app.post('/srchclients', function(req, res){
+    console.log(req.body);
+})
+
 app.get('/srchclients',function(req,res){                // render search clients page when you visit mngclients url
-  res.render('searchclients', {});
+res.render('searchclients', {});
 });
+
+
 
 app.use(function(req,res){
   res.status(404);

@@ -7,11 +7,9 @@
 <section class="container">
 <h2 class="m-t-5"> Search by first name </h2>
 <form method="post" id="myForm">
-  <input type="hidden" value="{{id}}" id="client" name="client">
-  <input type="hidden" value="put" id="method" name="method">
   <div class="grid-12 md:grid-6-6 m-t-5">
   <label for="name">Enter the first name of your client:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Fname" type="text" name="Fname" id="toDoFName" value="{{Fname}}" placeholder = "Client's first name">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Fname" type="text" name="ClientFN" id="toDoFName" value="{{Fname}}" placeholder = "Client's first name">
   <span></span>
   <div class="place-x-end">
   <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Search" id="tablePost">
@@ -24,11 +22,9 @@
 <section class="container">
 <h2> Search by last name </h2>
 <form method="post" id="myForm">
-  <input type="hidden" value="{{id}}" id="client" name="client">
-  <input type="hidden" value="put" id="method" name="method">
   <div class="grid-12 md:grid-6-6 m-t-5">
   <label for="name">Enter the last name of your client:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Lname" type="text" name="Lname" id="toDoLName" value="{{Lname}}" placeholder = "Client's last name">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Lname" type="text" name="ClientLN" id="toDoLName" value="{{Lname}}" placeholder = "Client's last name">
   <span></span>
   <div class="place-x-end">
   <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white"  type="submit" name="Add Item" value="Search" id="tablePost">
@@ -40,11 +36,9 @@
 <section class="container">
 <h2> Search by email </h2>
 <form method="post" id="myForm">
-  <input type="hidden" value="{{id}}" id="client" name="client">
-  <input type="hidden" value="put" id="method" name="method">
   <div class="grid-12 md:grid-6-6 m-t-5">
   <label for="name">Enter the email of your client:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="email" type="text" name="email" id="toDoEmail" value="{{Lname}}" placeholder = "Client's email">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="ClientEmail" type="text" name="email" id="toDoEmail" value="{{Lname}}" placeholder = "Client's email">
   <span></span>
   <div class="place-x-end">
   <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Search" id="tablePost">
@@ -57,13 +51,11 @@
 <section class="container">
 <h2> Search by assigned trainer </h2>
 <form method="post" id="myForm">
-  <input type="hidden" value="{{id}}" id="client" name="client">
-  <input type="hidden" value="put" id="method" name="method">
   <div class="grid-12 md:grid-6-6 m-t-5">
   <label for="name">Enter the first name of the trainer:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Fname" type="text" name="Fname" id="toDoFName" value="{{Fname}}" placeholder = "Trainers's first name">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="TrainerFN" type="text" name="Fname" id="toDoFName" value="{{Fname}}" placeholder = "Trainers's first name">
   <label for="name">Enter the last name of the trainer:</label>
-  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="Lname"  type="text" name="Lname" id="toDoLName" value="{{Lname}}" placeholder = "Trainers's last name">
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="TrainerLN"  type="text" name="Lname" id="toDoLName" value="{{Lname}}" placeholder = "Trainers's last name">
   <span></span>
   <div class="place-x-end">
   <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Search" id="tablePost">
