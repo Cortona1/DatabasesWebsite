@@ -1,3 +1,5 @@
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
 <br>
 <br> 
 <h1 class = "welcome font-xl"> Welcome to the Certifications page! </h1>
@@ -39,11 +41,26 @@
 {{#each results}} 
 <tr>
     <td> {{this.CertTitle}} </td>
-    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" href="/certs?deleteCertification={{this.CertID}}"> Delete Certification</a> </td>
+    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" onClick="deleteCert({{this.CertID}})"> Delete Certification</a> </td>
 </tr>
 {{/each}}
 
 </table>
 
+
+
+
+
+<script>
+  function deleteCert(id) {
+    $.ajax({
+      url: '/certs/' + id,
+      type: 'DELETE',
+      success: function(result) {
+        window.location.reload(true);
+      }
+    })
+  }
+</script>
 
 

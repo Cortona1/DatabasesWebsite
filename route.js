@@ -41,7 +41,10 @@ const removeClientTrainer = 'UPDATE Clients SET TrainerID = NULL WHERE Clients.T
 const deleteTrainerCert  = 'DELETE FROM TrainerCerts WHERE TrainerID = ?';
 const deleteTrainer = 'DELETE FROM Trainers WHERE TrainerID = ?'
 
+// queries for deleting Certifications from TrainerCerts, and Certifications
 
+const deleteCertTrainer = 'DELETE FROM TrainerCerts WHERE CertID = ?';
+const deleteCert = 'DELETE FROM Certifications WHERE CertID = ?';
 
 
 
@@ -76,6 +79,28 @@ app.post('/certs', function(req, res){
     certPage(req,res);
     })
 })
+
+
+
+app.delete('/certs/:id', function(req, res) {
+  var context = {};
+  mysql.pool.query(deleteCertTrainer, [req.params.id], function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+  });
+
+  mysql.pool.query(deleteCert, [req.params.id], function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+  });
+
+  certPage(req,res);
+});
+
 
 app.get('/clients',function(req,res){ 
   var context = {};
@@ -191,7 +216,7 @@ app.delete('/trainers/:id', function(req, res) {
 
   trainerPage(req,res);
 
-})
+});
 
 
 
