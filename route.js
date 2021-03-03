@@ -35,6 +35,16 @@ const searchClientLN = 'SELECT * FROM Clients WHERE ClientLN = ?';
 const searchClientEmail = 'SELECT * FROM Clients WHERE ClientEmail = ?';
 const searchClientTrainer = 'SELECT * FROM Clients WHERE Clients.TrainerID = (SELECT TrainerID FROM Trainers WHERE TrainerFN = ? and TrainerLN = ?)';
 
+// queries for deleting Trainers from Trainers, TrainerCerts, and from Clients
+
+const removeClientTrainer = 'UPDATE Clients SET TrainerID = NULL WHERE Clients.TrainerID = ?'; 
+const deleteTrainerCert  = 'DELETE FROM TrainerCerts WHERE TrainerID = ?';
+const deleteTrainer = 'DELETE FROM Trainers WHERE TrainerID = ?'
+
+
+
+
+
 app.get('/',function(req,res){
   res.render('index', {});
 });
@@ -152,6 +162,38 @@ app.post('/mngclients', function(req, res) {
   })
 
 })
+
+
+
+app.delete('/trainers/:id', function(req, res) {
+  var context = {};
+  mysql.pool.query(removeClientTrainer, [req.params.id], function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+  });
+
+  mysql.pool.query(deleteTrainerCert, [req.params.id], function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+  });
+
+
+  mysql.pool.query(deleteTrainer, [req.params.id], function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+  });
+
+  trainerPage(req,res);
+
+})
+
+
 
 app.get('/trainers',trainerPage);
 
