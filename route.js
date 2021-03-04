@@ -29,6 +29,7 @@ const insertTrainer = 'INSERT INTO `Trainers` (`TrainerLN`, `TrainerFN`, `Traine
 const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from Certifications WHERE CertTitle = ?));'
 const insertExercisePlan = 'INSERT INTO ExercisePlans (ExerciseGoal) VALUES (?)';
 const insertClientPlan = 'INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES ((SELECT ClientID from Clients WHERE ClientLN = ? AND ClientFN = ?),(SELECT ExerciseID FROM ExercisePlans WHERE ExerciseGoal = ?))';
+const deleteClientExercisePlan = 'DELETE FROM ClientPlans WHERE ClientPlans.ClientID = ?';
 const insertClientTrainer = 'UPDATE Clients SET TrainerID = (SELECT TrainerID from Trainers WHERE TrainerLN =? AND TrainerFN = ? AND TrainerEmail = ?) WHERE (ClientEmail = ?)';
 const searchClientFN = 'SELECT * FROM Clients WHERE ClientFN = ?';
 const searchClientLN = 'SELECT * FROM Clients WHERE ClientLN = ?';
@@ -338,7 +339,17 @@ app.get('/mngplans',function(req,res){                // render manage plans pag
   });
 });
 
-
+app.delete('/mngplans/:id', function(req, res) {
+  var context = {};
+  mysql.pool.query(deleteClientExercisePlan, [req.params.id], function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+    context.results = rows;
+    res.render('managexerciseplans', context);
+  })
+})
 
 
 
