@@ -50,7 +50,7 @@
     <td> {{this.TrainerLN}} </td>
     <td> {{this.TrainerEmail}} </td>
     <td> {{this.CertTitle}}
-    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" onClick="deleteCert({{this.CertID}})"> Delete Certification</a> </td>
+    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" onClick="deleteCert({{this.CertID}}, {{this.TrainerID}})"> Delete Certification</a> </td>
 </tr>
 {{/each}}
 
@@ -59,9 +59,9 @@
 
 
 <script>
-  function deleteCert(id) {
+  function deleteCert(CertID, TrainerID) {
     $.ajax({
-      url: '/mngtrainers/' + id,
+      url: '/mngtrainers/' + CertID + TrainerID, 
       type: 'DELETE',
       success: function(result) {
         window.location.reload(true);
