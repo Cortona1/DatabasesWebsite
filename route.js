@@ -35,6 +35,8 @@ const searchClientLN = 'SELECT * FROM Clients WHERE ClientLN = ?';
 const searchClientEmail = 'SELECT * FROM Clients WHERE ClientEmail = ?';
 const searchClientTrainer = 'SELECT * FROM Clients WHERE Clients.TrainerID = (SELECT TrainerID FROM Trainers WHERE TrainerFN = ? and TrainerLN = ?)';
 
+const removeClientTrainerByEmail= 'UPDATE Clients SET Clients.TrainerID = Null WHERE (Clients.TrainerID = (SELECT TrainerID FROM Trainers WHERE Trainers.TrainerEmail = ?))';
+const removeClientTrainerV2 = 'UPDATE Clients SET TrainerID = NULL WHERE Clients.ClientID = ?'; 
 // queries for deleting Trainers from Trainers, TrainerCerts, and from Clients
 
 const removeClientTrainer = 'UPDATE Clients SET TrainerID = NULL WHERE Clients.TrainerID = ?'; 
@@ -166,6 +168,27 @@ app.get('/mngclients',function(req,res){                // render manage clients
     res.render('manageclients', context);
   });
 });
+
+app.delete('/mngclients/:id', function(req, res) {
+  context = {};
+  console.log(req.body);
+  mysql.pool.query(removeClientTrainerV2, [req.params.id], function(err, rows, fields) {
+  if (err) {
+    next(err);
+    return;
+  }});
+
+  mysql.pool.query(getAllClients, function(err, rows, fields){
+    if (err) {
+      next(err);
+      return;
+    }
+    context.results = rows;
+    console.log(context);
+    res.render('manageclients', context);
+  })
+})
+
 
 function manageTrainersPage(req,res){
   var context = {};

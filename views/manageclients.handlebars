@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 <br>
 <br> 
@@ -52,32 +53,23 @@
     <td>{{ClientLN}}</td>
     <td>{{ClientEmail}}</td>
     <td>{{TrainerFN}} {{TrainerLN}}</td>
-    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" href="/certs?deleteClient={{this.ClientID}}"> Delete Client's Trainer</a> </td>
+    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" onClick="deleteTrainer({{this.ClientID}})"> Delete Client's Trainer</a> </td>
   </tr>
   {{/each}}
-
-  {{!-- <tr>
-    <td>John</td>
-    <td>Joseph</td>
-    <td>JandJ@gmail.com</td>
-    <td>Boyd Romero</td>
-    <td><button type="button" onclick="alert('Removed Assigned Trainer')">Remove Trainer</button></td>
-  </tr>
-
-  <tr>
-    <td>Jervis</td>
-    <td>Glafira</td>
-    <td>JandG@gmail.com</td>
-    <td>Christina Rodriguez</td>
-    <td><button type="button" onclick="alert('Removed Assigned Trainer')">Remove Trainer</button></td>
-  </tr>
-
-  <tr>
-    <td>Tracy</td>
-    <td>Blanco</td>
-    <td>TandB@gmail.com</td>
-    <td>Josh Kohl</td>
-    <td><button type="button" onclick="alert('Removed Assigned Trainer')">Remove Trainer</button></td>
-  </tr> --}}
-
 </table>
+
+
+
+
+
+<script>
+  function deleteTrainer(id) {
+    $.ajax({
+      url: '/mngclients/' + id,
+      type: 'DELETE',
+      success: function(result) {
+        window.location.reload(true);
+      }
+    })
+  }
+</script>
