@@ -23,7 +23,7 @@ const getAllClients = 'SELECT * FROM Clients LEFT JOIN Trainers ON Clients.Train
 const insertClient = 'INSERT INTO Clients (`ClientFN`, `ClientLN`, `ClientEmail`) VALUES (?, ?, ?)';
 const deleteClientPlan = 'DELETE FROM ClientPlans WHERE ClientPlans.ClientID = ?';
 const deleteClient = 'DELETE FROM Clients WHERE Clients.ClientID = ?';
-const getTrainersWithCerts = 'SELECT Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers LEFT JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID LEFT JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
+const getTrainersWithCerts = 'SELECT Certifications.CertID, Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers LEFT JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID LEFT JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
 const insertCert = 'INSERT INTO Certifications SET CertTitle = ?';
 const insertTrainer = 'INSERT INTO `Trainers` (`TrainerLN`, `TrainerFN`, `TrainerEmail`) VALUES (?,?,?)';
 const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from Certifications WHERE CertTitle = ?));'
@@ -48,7 +48,6 @@ const deleteTrainer = 'DELETE FROM Trainers WHERE TrainerID = ?'
 
 const deleteCertTrainer = 'DELETE FROM TrainerCerts WHERE CertID = ?';
 const deleteCert = 'DELETE FROM Certifications WHERE CertID = ?';
-
 
 
 app.get('/',function(req,res){
@@ -276,10 +275,29 @@ app.get('/mngtrainers',function(req,res){                // render manage traine
     }
     context.results = rows;
     console.log(context);
-    res.render('managetrainers', context)
+    res.render('managetrainers', context);
   });
 });
 
+app.delete('/mngtrainers/:id', function(req, res) {
+  var context = {};
+  mysql.pool.query(deleteCertTrainer, [req.params.id], function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+  });
+
+  mysql.pool.query(getTrainersWithCerts, function(err, rows, fields){ 
+  if (err){
+    next(err);
+    return;
+  }
+  context.results = rows;
+  res.render('managetrainers', context);
+  });
+
+});
 
 
 function TrainerCertPage(req,res){
