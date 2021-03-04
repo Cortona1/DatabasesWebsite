@@ -23,7 +23,7 @@ const getAllClients = 'SELECT * FROM Clients LEFT JOIN Trainers ON Clients.Train
 const insertClient = 'INSERT INTO Clients (`ClientFN`, `ClientLN`, `ClientEmail`) VALUES (?, ?, ?)';
 const deleteClientPlan = 'DELETE FROM ClientPlans WHERE ClientPlans.ClientID = ?';
 const deleteClient = 'DELETE FROM Clients WHERE Clients.ClientID = ?';
-const getTrainersWithCerts = 'SELECT Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers INNER JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID INNER JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
+const getTrainersWithCerts = 'SELECT Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers LEFT JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID LEFT JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
 const insertCert = 'INSERT INTO Certifications SET CertTitle = ?';
 const insertTrainer = 'INSERT INTO `Trainers` (`TrainerLN`, `TrainerFN`, `TrainerEmail`) VALUES (?,?,?)';
 const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from Certifications WHERE CertTitle = ?));'
