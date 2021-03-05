@@ -54,9 +54,8 @@ const deleteCert = 'DELETE FROM Certifications WHERE CertID = ?';
 const removeTrainerCert = 'DELETE FROM TrainerCerts WHERE CertID = ? AND TrainerID = ?';
 
 // check if client plan exist 
-const checkClientPlan = 'SELECT COUNT(1) FROM ClientPlans WHERE ClientPlans.ClientID = (SELECT ClientID FROM Clients WHERE Clients.ClientEmail = ?)';
-const deleteClientUsingEmail = 'DELETE FROM Clients WHERE Clients.ClientID = (SELECT ClientID FROM Clients WHERE Clients.ClientEmail = ?)';
-const getClientIDByEmail = 'SELECT Clients.ClientID FROM Clients WHERE Clients.ClientEmail = ?;'
+//const checkClientPlan = 'SELECT COUNT(1) FROM ClientPlans WHERE ClientPlans.ClientID = (SELECT ClientID FROM Clients WHERE Clients.ClientEmail = ?)';
+
 
 app.get('/',function(req,res){
   res.render('index', {});
