@@ -58,42 +58,14 @@
     onClick="deleteClient({{this.ClientID}})"> Delete Client</a> </td>
   </tr>
   {{/each}}
-
-
-
-  {{!-- <tr>
-    <td>John</td>
-    <td>Joseph</td>
-    <td>JandJ@gmail.com</td>
-    <td>Gain muslce mass</td>
-    <td>Boyd Romero </td>
-    <td><button type="button" onclick="alert('Deleted client')">Delete Client</button></td>
-  </tr>
-
-  <tr>
-    <td>Jervis</td>
-    <td>Glafira</td>
-    <td>JandG@gmail.com</td>
-    <td>Lose fat</td>
-    <td>Christina Rodriguez </td>
-    <td><button type="button" onclick="alert('Deleted client')">Delete Client</button></td>
-  </tr>
-
-  <tr>
-    <td>Tracy</td>
-    <td>Blanco</td>
-    <td>TandB@gmail.com</td>
-    <td>Gain muscle but lose fat</td>
-    <td>Josh Kohl</td>
-    <td><button type="button" onclick="alert('Deleted client')">Delete Client</button></td>
-  </tr> --}}
-
 </table>
 
 <script>
-  function deleteClient(id) {
+  function deleteClient(ClientID) {
+  var link = '/clients/';
+  link+= ClientID;
     $.ajax({
-      url: '/clients/' + id,
+      url: link,
       type: 'DELETE',
       success: function(result) {
         window.location.reload(true);

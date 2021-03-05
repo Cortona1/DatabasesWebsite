@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 const insertQuery='INSERT INTO workouts (`name`, `reps`, `weight`, `date`, `lbs`) VALUES (?,?,?,?,?)';
 const getAllCerts='SELECT * FROM Certifications';
 const getAllTrainers = 'SELECT * FROM Trainers';
-const getAllClients = 'SELECT * FROM Clients LEFT JOIN Trainers ON Clients.TrainerID = Trainers.TrainerID LEFT JOIN ClientPlans ON Clients.ClientID = ClientPlans.ClientID LEFT JOIN ExercisePlans ON ClientPlans.ExerciseID = ExercisePlans.ExerciseID';
+const getAllClients = 'SELECT Clients.ClientID, Clients.ClientEmail, Clients.ClientLN, Clients.ClientFN, Trainers.TrainerFN, Trainers.TrainerLN, ExercisePlans.ExerciseGoal FROM Clients lEFT JOIN Trainers ON Clients.TrainerID = Trainers.TrainerID LEFT JOIN ClientPlans ON Clients.ClientID = ClientPlans.ClientID LEFT JOIN ExercisePlans ON ClientPlans.ExerciseID = ExercisePlans.ExerciseID';
 const insertClient = 'INSERT INTO Clients (`ClientFN`, `ClientLN`, `ClientEmail`) VALUES (?, ?, ?)';
 const deleteClientPlan = 'DELETE FROM ClientPlans WHERE ClientPlans.ClientID = ?';
 const deleteClient = 'DELETE FROM Clients WHERE Clients.ClientID = ?';
@@ -52,6 +52,11 @@ const deleteCert = 'DELETE FROM Certifications WHERE CertID = ?';
 // remove certificaiton from a specific trainer only
 
 const removeTrainerCert = 'DELETE FROM TrainerCerts WHERE CertID = ? AND TrainerID = ?';
+
+// check if client plan exist 
+const checkClientPlan = 'SELECT COUNT(1) FROM ClientPlans WHERE ClientPlans.ClientID = (SELECT ClientID FROM Clients WHERE Clients.ClientEmail = ?)';
+const deleteClientUsingEmail = 'DELETE FROM Clients WHERE Clients.ClientID = (SELECT ClientID FROM Clients WHERE Clients.ClientEmail = ?)';
+const getClientIDByEmail = 'SELECT Clients.ClientID FROM Clients WHERE Clients.ClientEmail = ?;'
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -140,24 +145,20 @@ app.post('/clients', function(req, res) {
   });
 });
 
-app.delete('/clients/:id', function(req, res) {
+app.delete('/clients/:ClientID', function(req, res) {
+  
+  console.log("got to delete clients page!")
   var context = {};
-  mysql.pool.query(deleteClientPlan, [req.params.id], function(err, rows, fields) {
-    if (err) {
-      next(err);
-      return;
-    }
-    console.log('deleted clientplan ' + req.params.id)
-    mysql.pool.query(deleteClient, [req.params.id], function(err, rows, fields) {
-      if (err) {
-        console.log(JSON.stringify(err));
-        next(err);
-        return;
-      }
-      res.render('clients', context);
-    });
-  });
-})
+
+  if (req.params.ClientID=== 'undefined'){
+    console.log(req.params.ClientID);
+  }
+
+  else {
+    console.log(req.params.ClientID);   
+  }
+
+});
 
 app.get('/mngclients',function(req,res){                // render manage clients page when you visit mngclients url
   var context = {};
