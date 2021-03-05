@@ -146,18 +146,27 @@ app.post('/clients', function(req, res) {
 });
 
 app.delete('/clients/:ClientID', function(req, res) {
-  
+  context = {}
   console.log("got to delete clients page!")
-  var context = {};
+  
+  mysql.pool.query(deleteClientExercisePlan, [req.params.ClientID], function(err,rows,fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+  });
 
-  if (req.params.ClientID=== 'undefined'){
-    console.log(req.params.ClientID);
-  }
+  mysql.pool.query(deleteClient, [req.params.ClientID], function(err,rows,fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+  });
 
-  else {
-    console.log(req.params.ClientID);   
-  }
-
+  mysql.pool.query(getAllClients, function(rows,fields) {
+    context.results = rows;
+    res.render('clients', context);
+  });
 });
 
 app.get('/mngclients',function(req,res){                // render manage clients page when you visit mngclients url
