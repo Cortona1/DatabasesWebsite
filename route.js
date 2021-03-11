@@ -26,7 +26,7 @@ const deleteClient = 'DELETE FROM Clients WHERE Clients.ClientID = ?';
 const getTrainersWithCerts = 'SELECT Trainers.TrainerID, Certifications.CertID, Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers LEFT JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID LEFT JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
 const insertCert = 'INSERT INTO Certifications SET CertTitle = ?';
 const insertTrainer = 'INSERT INTO `Trainers` (`TrainerLN`, `TrainerFN`, `TrainerEmail`) VALUES (?,?,?)';
-const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from Certifications WHERE CertTitle = ?));'
+const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=? AND TrainerLN=?), (SELECT CertID from Certifications WHERE CertTitle = ?))';
 const insertExercisePlan = 'INSERT INTO ExercisePlans (ExerciseGoal) VALUES (?)';
 const insertClientPlan = 'INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES ((SELECT ClientID from Clients WHERE ClientLN = ? AND ClientFN = ?),(SELECT ExerciseID FROM ExercisePlans WHERE ExerciseGoal = ?))';
 const deleteClientExercisePlan = 'DELETE FROM ClientPlans WHERE ClientPlans.ClientID = ?';
@@ -56,6 +56,8 @@ const removeTrainerCert = 'DELETE FROM TrainerCerts WHERE CertID = ? AND Trainer
 // check if client plan exist 
 //const checkClientPlan = 'SELECT COUNT(1) FROM ClientPlans WHERE ClientPlans.ClientID = (SELECT ClientID FROM Clients WHERE Clients.ClientEmail = ?)';
 
+//updated trainer certs insertion
+const insertTrainerCertUpdated = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES (?,?)';
 
 app.get('/',function(req,res){
   res.render('index', {});
@@ -280,15 +282,20 @@ app.post('/trainers', function(req, res){
 
 app.get('/mngtrainers',function(req,res){                // render manage trainers page when you visit mngclients url
   var context = {};
-  mysql.pool.query(getTrainersWithCerts, function(err, rows, fields){ 
-    if (err){
-      next(err);
-      return;
-    }
+  mysql.pool.query(getTrainersWithCerts, function(err, rows, fields){
     context.results = rows;
-    console.log(context);
-    res.render('managetrainers', context);
+    mysql.pool.query(getAllCerts, function(err, rows, fields){
+      context.certs = rows;
+      console.log(context);
+      
+      mysql.pool.query(getAllTrainers, function(err, rows, fields){
+      context.trainers = rows;
+      console.log(context);
+      res.render('managetrainers', context); 
+      });
+    });
   });
+
 });
 
 app.delete('/mngtrainers/:CertID:TrainerID', function(req, res) {
@@ -316,14 +323,18 @@ app.delete('/mngtrainers/:CertID:TrainerID', function(req, res) {
 
 function TrainerCertPage(req,res){
   var context = {};
-  mysql.pool.query(getTrainersWithCerts, function(err, rows, fields){ //homework6 project page
-    if (err){
-      res.status(500).send("ServerError");
-      return;
-    }
+  mysql.pool.query(getTrainersWithCerts, function(err, rows, fields){
     context.results = rows;
-    console.log(context);
-    res.render('managetrainers', context);
+    mysql.pool.query(getAllCerts, function(err, rows, fields){
+      context.certs = rows;
+      console.log(context);
+      
+      mysql.pool.query(getAllTrainers, function(err, rows, fields){
+      context.trainers = rows;
+      console.log(context);
+      res.render('managetrainers', context); 
+      });
+    });
   });
 }
 
@@ -344,7 +355,7 @@ function ManagePlanPage(req,res){
 
 app.post('/mngtrainers', function(req, res){
     console.log(req.body);
-    mysql.pool.query(insertTrainerCert, [req.body.TrainerFN, req.body.TrainerLN,req.body.CertTitle], function(err,rows,fields){
+    mysql.pool.query(insertTrainerCertUpdated, [req.body.TrainerID, req.body.CertID], function(err,rows,fields){
     TrainerCertPage(req,res);
     });
 })
