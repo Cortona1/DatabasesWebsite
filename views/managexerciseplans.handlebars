@@ -4,19 +4,13 @@
 <br> 
 <h1 class = "welcome font-xl" > Welcome to the Manage Exercise plans page! </h1>
 
-<br>
-<br>
-
 <section class="container">
 
-<div class="grid-12 md:grid-6-6 m-t-5">
-  <h2 class="mx-auto"> Update Client's exercise plan </h2>
+  <h2 class="m-t-5"> Update Client's exercise plan </h2>
+  <form method="post" id="myForm">
 
-  <br>
-  <br>
-
+  <div class="grid-12 md:grid-6-6 m-t-5">
   <label for="name">Select the name of the Client:</label>
-
   <div class="dropdownMenus col-md-12 center m-b-2" >
     <select id="TrainerList" class="form-control" name="ClientID">
       <option>Choose Client</option>
@@ -35,12 +29,16 @@
       <option value="{{this.ExerciseID}}">{{this.ExerciseGoal}}</option>
       {{/each}}
     </select>
-    <br>
-    <br>
-  <div class="place-x-end">
+  </div>
+  <span></span>
+  <div class="center">
   <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Update" id="tablePost">
   </div>
+  </div>
+  </form>
 </section>
+
+
 {{!-- <form method="post" id="myForm">
   <input type="hidden" value="{{id}}" id="client" name="client">
   <input type="hidden" value="put" id="method" name="method">
