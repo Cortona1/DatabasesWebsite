@@ -411,9 +411,17 @@ app.post('/srchclients', function(req, res){
             return;
           }
         context.results = rows;
-        console.log("This is context")
+        console.log(context);
+
+        mysql.pool.query(getAllTrainers, function(err, rows, fields) {
+        if (err) {
+        next(err);
+        return;
+        }
+        context.trainers = rows;
         console.log(context);
         res.render('searchclients', context);
+  });
   });}
 
   if ((count == 2) && ((Object.keys(req.body)[0]) === "ClientLN")){                            // check if they searched by client last name
@@ -425,9 +433,17 @@ app.post('/srchclients', function(req, res){
             return;
           }
         context.results = rows;
-        console.log("This is context")
+        console.log(context);
+
+        mysql.pool.query(getAllTrainers, function(err, rows, fields) {
+        if (err) {
+        next(err);
+        return;
+        }
+        context.trainers = rows;
         console.log(context);
         res.render('searchclients', context);
+  });    
   });}
 
   if ((count == 2) && ((Object.keys(req.body)[0]) === "ClientEmail")){                            // check if they searched by client email
@@ -439,15 +455,60 @@ app.post('/srchclients', function(req, res){
             return;
           }
         context.results = rows;
-        console.log("This is context")
+        
+        mysql.pool.query(getAllTrainers, function(err, rows, fields) {
+        if (err) {
+        next(err);
+        return;
+        }
+        context.trainers = rows;
         console.log(context);
         res.render('searchclients', context);
+  });
   });}
 
-  if ((count == 3) && ((Object.keys(req.body)[0]) === "TrainerFN") && ((Object.keys(req.body)[1]) === "TrainerLN")){                            // check if they searched by Trainer info
-        console.log("Sucess!");
-        var context = {};
-        mysql.pool.query(searchClientTrainer, [req.body.TrainerFN, req.body.TrainerLN], function(err,rows,fields){
+  console.log("got here sear")
+  console.log(req.body);
+  console.log("the count is", count);
+
+  if ((Object.keys(req.body)[0] == "TrainerFullName")) {
+    console.log("YES");
+    var fullName = req.body.TrainerFullName;
+    commaLocation = "test";
+
+    for (i=0; i < fullName.length; i++) {
+        if (fullName[i] == ",") {
+          commaLocation = i;
+          break; 
+        }
+    }
+
+    console.log("The comma is at this index", commaLocation);
+
+    firstName = '';
+    lastName = '';
+    helperCounter = 0;
+
+    while (helperCounter < commaLocation) {   
+      firstName += fullName[helperCounter];
+      helperCounter+=1;
+    }
+    console.log(firstName);
+
+    helperCounter = commaLocation + 1;
+
+    while (helperCounter < fullName.length) {   
+      lastName += fullName[helperCounter];
+      helperCounter+=1;
+    }
+    console.log(lastName);
+    req.body.newFName = firstName;
+    req.body.newLName = lastName;
+    console.log(req.body.newFName);
+    console.log(req.body.newLName);
+
+    var context = {};
+        mysql.pool.query(searchClientTrainer, [req.body.newFName, req.body.newLName], function(err,rows,fields){
           if (err) {
             next(err);
             return;
@@ -455,15 +516,30 @@ app.post('/srchclients', function(req, res){
         context.results = rows;
         console.log("This is context")
         console.log(context);
+        mysql.pool.query(getAllTrainers, function(err, rows, fields) {
+        if (err) {
+        next(err);
+        return;
+        }
+        context.trainers = rows;
+        console.log(context);
         res.render('searchclients', context);
-  });}
-
-})
+  });
+});
+};});
 
 app.get('/srchclients',function(req,res){                // render search clients page when you visit mngclients url
-res.render('searchclients', {});
+  var context = {};
+  mysql.pool.query(getAllTrainers, function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+    context.trainers = rows;
+    console.log(context);
+    res.render('searchclients', context);
+  });
 });
-
 
 
 app.use(function(req,res){
