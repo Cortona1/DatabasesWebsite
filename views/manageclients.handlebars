@@ -6,7 +6,31 @@
 
 <section class="container"> 
 <h2 class="m-t-5"> Assign/Update Client's trainer </h2>
-  <form method="post" id="myForm">
+
+<div class="grid-12 md:grid-6-6 m-t-5">
+  <label for="name">Select the name of the Client:</label>
+
+  <div class="dropdownMenus col-md-12 center m-b-2" >
+    <select id="TrainerList" class="form-control" name="ClientID">
+      <option>Choose Client</option>
+      {{#each results}}
+      <option value="{{this.ClientID}}">{{this.ClientFN}} {{this.ClientLN}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <label for="name">Select the name of the Trainer:</label>
+
+  <div class="dropdownMenus col-md-12 center m-b-2" >
+    <select id="TrainerList" class="form-control" name="TrainerID">
+      <option>Choose Trainer</option>
+      {{#each results}}
+      <option value="{{this.TrainerID}}">{{this.TrainerFN}} {{this.TrainerLN}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  {{!-- <form method="post" id="myForm">
   <div class="grid-12 md:grid-6-6 m-t-5">
   <label for="name">Enter the first name of your client:</label>
   <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="ClientFN" id="toDoFName" value="{{Fname}}" placeholder = "Client's first name">
@@ -26,8 +50,9 @@
   </div>
   </div>
 </form>
-</section>
+</section> --}}
 
+</div>
 
 <br>
 <br>
