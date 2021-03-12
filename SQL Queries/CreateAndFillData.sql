@@ -43,8 +43,10 @@ CREATE TABLE `TrainerCerts` (
     `TrainerID` INT(11) NOT NULL,
     `CertID` INT(11) NOT NULL,
     FOREIGN KEY (`TrainerID`) REFERENCES `Trainers`(`TrainerID`),
-    FOREIGN KEY (`CertID`) REFERENCES `Certifications`(`CertID`)
+    FOREIGN KEY (`CertID`) REFERENCES `Certifications`(`CertID`),
+    CONSTRAINT TrainerCertKey UNIQUE (`TrainerID`, `CertID`)
 );
+
 
 
 -- Create ExercisePlans table
