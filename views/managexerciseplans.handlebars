@@ -4,9 +4,44 @@
 <br> 
 <h1 class = "welcome font-xl" > Welcome to the Manage Exercise plans page! </h1>
 
+<br>
+<br>
+
 <section class="container">
-<h2 class="m-t-5"> Update Client's exercise plan </h2>
-<form method="post" id="myForm">
+
+<div class="grid-12 md:grid-6-6 m-t-5">
+  <h2 class="mx-auto"> Update Client's exercise plan </h2>
+
+  <br>
+  <br>
+
+  <label for="name">Select the name of the Client:</label>
+
+  <div class="dropdownMenus col-md-12 center m-b-2" >
+    <select id="TrainerList" class="form-control" name="ClientID">
+      <option>Choose Client</option>
+      {{#each results}}
+      <option value="{{this.ClientID}}">{{this.ClientFN}} {{this.ClientLN}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <label for="name">Select the name of the Exercise Plan:</label>
+
+  <div class="dropdownMenus col-md-12 center m-b-2" >
+    <select id="TrainerList" class="form-control" name="ExerciseID">
+      <option>Choose Exercise Plan</option>
+      {{#each results}}
+      <option value="{{this.ExerciseID}}">{{this.ExerciseGoal}}</option>
+      {{/each}}
+    </select>
+    <br>
+    <br>
+  <div class="place-x-end">
+  <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Update" id="tablePost">
+  </div>
+</section>
+{{!-- <form method="post" id="myForm">
   <input type="hidden" value="{{id}}" id="client" name="client">
   <input type="hidden" value="put" id="method" name="method">
   <div class="grid-12 md:grid-6-6 m-t-5">
@@ -18,13 +53,11 @@
   <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="ClientEmail" id="toDoEmail" value="{{email}}" placeholder = "Client's email">
   <label for="weight">Enter the clients exercise plan:</label>
   <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="ExerciseGoal" id="toDoTFname" value="{{email}}" placeholder = "Client's exercise plan">
-  <span></span>
-  <div class="place-x-end">
-  <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Update" id="tablePost">
-  </div>
-  </div>
+  <span></span> --}}
+  
+  {{!-- </div>
 </form>
-</section>
+</section> --}}
 
 
 <br>
