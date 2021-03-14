@@ -572,6 +572,22 @@ app.get('/exerciseplans',function(req,res){                // render search clie
   });
 });
 
+app.post('/exerciseplans', function(req, res) {
+  var context = {};
+  console.log(req.body);
+  mysql.pool.query(insertExercisePlan, [req.body.ExerciseTitle], function(err, rows, fields) {
+    mysql.pool.query(getAllExercisePlans, function(err, rows, fields) {
+      if (err) {
+        next(err);
+        return;
+      }
+      context.results = rows;
+      console.log(context);
+      res.render('exerciseplans', context);
+    })
+  })
+})
+
 
 app.use(function(req,res){
   res.status(404);
