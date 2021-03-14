@@ -71,10 +71,9 @@ app.get('/home',function(req,res){                    // render home page when y
 
 app.get('/certs',certPage);
 
-
 function certPage(req,res){
   var context = {};
-  mysql.pool.query(getAllCerts, function(err, rows, fields){ //homework6 project page
+  mysql.pool.query(getAllCerts, function(err, rows, fields){   
     if (err){
       res.status(500).send("ServerError");
       return;
@@ -112,6 +111,11 @@ app.delete('/certs/:id', function(req, res) {
   certPage(req,res);
 });
 
+
+//Citation for the following function:
+//Date: 3/14/2021
+// Adapted from /OR/ Based on:
+//Source URL: http://www.oregonstate.edu/courses/1784187
 
 app.get('/clients',function(req,res){ 
   var context = {};
@@ -207,7 +211,7 @@ app.delete('/mngclients/:id', function(req, res) {
 
 function manageTrainersPage(req,res){
   var context = {};
-  mysql.pool.query(getAllClients, function(err, rows, fields){ //homework6 project page
+  mysql.pool.query(getAllClients, function(err, rows, fields){ 
     if (err){
       res.status(500).send("ServerError");
       return;
@@ -262,7 +266,7 @@ app.get('/trainers',trainerPage);
 
 function trainerPage(req,res){
   var context = {};
-  mysql.pool.query(getAllTrainers, function(err, rows, fields){ //homework6 project page
+  mysql.pool.query(getAllTrainers, function(err, rows, fields){ 
     if (err){
       res.status(500).send("ServerError");
       return;
@@ -342,7 +346,7 @@ function TrainerCertPage(req,res){
 
 function ManagePlanPage(req,res){
   var context = {};
-  mysql.pool.query(getAllClients, function(err, rows, fields){ //homework6 project page
+  mysql.pool.query(getAllClients, function(err, rows, fields){ 
     if (err){
       res.status(500).send("ServerError");
       return;
