@@ -24,13 +24,18 @@
   <div class="dropdownMenus col-md-12 center m-b-2" >
     <select id="TrainerList" class="form-control" name="TrainerID">
       <option>Choose Trainer</option>
-      {{#each results}}
+      {{#each trainers}}
       <option value="{{this.TrainerID}}">{{this.TrainerFN}} {{this.TrainerLN}}</option>
       {{/each}}
     </select>
+
+<br>
+<br>
+ <div class="place-x-end">
+  <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" value="Update Client's Trainer" id="tablePost">
+  </div>
   </div>
 </div>
-
 <br>
 <br>
 <br>

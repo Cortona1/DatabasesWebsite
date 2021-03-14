@@ -25,7 +25,7 @@
   <div class="dropdownMenus col-md-12 center m-b-2" >
     <select id="TrainerList" class="form-control" name="ExerciseID">
       <option>Choose Exercise Plan</option>
-      {{#each results}}
+      {{#each ExerciseGoal}}
       <option value="{{this.ExerciseID}}">{{this.ExerciseGoal}}</option>
       {{/each}}
     </select>

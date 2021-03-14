@@ -178,6 +178,7 @@ app.get('/mngclients',function(req,res){                // render manage clients
       return;
     }
     context.results = rows;
+    context.trainers = rows.filter(row => row.TrainerFN != null);
     console.log(context)
     res.render('manageclients', context);
   });
@@ -377,6 +378,7 @@ app.get('/mngplans',function(req,res){                // render manage plans pag
       return;
     }
     context.results = rows;
+    context.ExerciseGoal = rows.filter(row =>row.ExerciseGoal != null);
     console.log(context);
     res.render('managexerciseplans', context);
   });
