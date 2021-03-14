@@ -59,6 +59,12 @@ const removeTrainerCert = 'DELETE FROM TrainerCerts WHERE CertID = ? AND Trainer
 //updated trainer certs insertion
 const insertTrainerCertUpdated = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES (?,?)';
 
+// new revised insert query
+const newInsertClientPlans = 'INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES (?,?)';
+
+// get all exercise plans query
+const getAllExercisePlans = 'SELECT * FROM ExercisePlans';
+
 app.get('/',function(req,res){
   res.render('index', {});
 });
@@ -369,6 +375,7 @@ app.post('/mngplans', function(req, res){
     console.log(req.body);
     mysql.pool.query(insertExercisePlan, [req.body.ExerciseGoal], function(err,rows,fields){
     });
+
     mysql.pool.query(insertClientPlan, [req.body.ClientLN,req.body.ClientFN,req.body.ExerciseGoal], function(err,rows,fields){
     ManagePlanPage(req,res)
     });
@@ -382,9 +389,13 @@ app.get('/mngplans',function(req,res){                // render manage plans pag
       return;
     }
     context.results = rows;
-    context.ExerciseGoal = rows.filter(row =>row.ExerciseGoal != null);
+    context.ExerciseGoal = rows.filter(row =>row.ExerciseGoal != null);   // bro this doesn't work because the original query is made with left joins...
+
+    mysql.pool.query(getAllExercisePlans, function(err, rows, fields) {
+    context.ExerciseGoal = rows;
     console.log(context);
     res.render('managexerciseplans', context);
+   });   
   });
 });
 
