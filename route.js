@@ -30,7 +30,8 @@ const insertTrainerCert = 'INSERT INTO `TrainerCerts` (TrainerID, CertID) VALUES
 const insertExercisePlan = 'INSERT INTO ExercisePlans (ExerciseGoal) VALUES (?)';
 const insertClientPlan = 'INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES ((SELECT ClientID from Clients WHERE ClientLN = ? AND ClientFN = ?),(SELECT ExerciseID FROM ExercisePlans WHERE ExerciseGoal = ?))';
 const deleteClientExercisePlan = 'DELETE FROM ClientPlans WHERE ClientPlans.ClientID = ?';
-const insertClientTrainer = 'UPDATE Clients SET TrainerID = (SELECT TrainerID from Trainers WHERE TrainerLN =? AND TrainerFN = ? AND TrainerEmail = ?) WHERE (ClientEmail = ?)';
+//const insertClientTrainer = 'UPDATE Clients SET TrainerID = (SELECT TrainerID from Trainers WHERE TrainerLN =? AND TrainerFN = ? AND TrainerEmail = ?) WHERE (ClientEmail = ?)';
+const insertClientTrainer = 'UPDATE Clients SET TrainerID = ? WHERE ClientID = ?';
 const searchClientFN = 'SELECT * FROM Clients WHERE ClientFN = ?';
 const searchClientLN = 'SELECT * FROM Clients WHERE ClientLN = ?';
 const searchClientEmail = 'SELECT * FROM Clients WHERE ClientEmail = ?';
@@ -188,9 +189,12 @@ app.get('/mngclients',function(req,res){                // render manage clients
       return;
     }
     context.results = rows;
-    context.trainers = rows.filter(row => row.TrainerFN != null);
     console.log(context)
-    res.render('manageclients', context);
+    mysql.pool.query(getAllTrainers, function(err, rows, fields) {
+      context.trainers = rows;
+      console.log(context);
+      res.render('manageclients', context);
+    });
   });
 });
 
@@ -224,13 +228,16 @@ function manageTrainersPage(req,res){
     }
     context.results = rows;
     console.log(context);
-    res.render('manageclients', context);
+    mysql.pool.query(getAllTrainers, function(err, rows, fields) {
+      context.trainers = rows;
+      res.render('manageclients', context);
+    })
   }); 
 }
 
 app.post('/mngclients', function(req, res) {
   console.log(req.body);
-  mysql.pool.query(insertClientTrainer, [req.body.TrainerLN, req.body.TrainerFN,req.body.TrainerEmail, req.body.ClientEmail], function(err,rows,fields){
+  mysql.pool.query(insertClientTrainer, [req.body.TrainerID, req.body.ClientID], function(err,rows,fields){
   manageTrainersPage(req,res);
   })
 
