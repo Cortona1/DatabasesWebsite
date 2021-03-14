@@ -1,5 +1,4 @@
 
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
 <br>
 <br> 
@@ -32,7 +31,7 @@
 <table class="center">
 
 <tr>
-  <th>Exercise Goal</th>
+  <th>Exercise Goals</th>
   <th></th>
 <tr>
 
@@ -40,21 +39,8 @@
 {{#each results}} 
 <tr>
     <td> {{this.ExerciseGoal}} </td>
-    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" onClick="deleteGoal({{this.ExerciseID}})"> Delete Goal</a> </td>
 </tr>
 {{/each}}
 
 </table>
 
-
-<script>
-  function deleteGoal(id) {
-    $.ajax({
-      url: '/trainers/' + id,
-      type: 'DELETE',
-      success: function(result) {
-        window.location.reload(true);
-      }
-    })
-  }
-</script>
