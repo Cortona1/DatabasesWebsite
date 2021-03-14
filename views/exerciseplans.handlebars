@@ -1,0 +1,60 @@
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+<br>
+<br> 
+<h1 class = "welcome font-xl"> Welcome to the Trainers page! </h1>
+
+<section class="container">
+<h2 class="m-t-5"> Create a new Exercise Goal </h2>
+  <form method="post" id="myForm">
+  <div class="grid-12 md:grid-6-6 m-t-5"
+  <label for="weight">Enter the goal:</label>
+  <input class="bg-transparent b-black m-b-2 focus:bg-white b-rounded b-1 p-2" type="text" name="ExerciseTitle" id="toDoTFname" value="{{TrainerFN}}" placeholder = "Example 'lose weight maintain muscle mass'">
+  <span></span>
+  <div class="place-x-end">
+  <input class="b-rounded b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" type="submit" name="Add Item" value="Add Plan" id="tablePost">
+  </form>
+  </div>
+  </div>
+</section>
+
+
+<br>
+<br>
+<br>
+<br>
+
+<section class="grid container">
+<h2 class="font-lg place-x-center m-y-5"> List of current plans</h2>
+</section>
+
+<table class="center">
+
+<tr>
+  <th>Exercise Goal</th>
+  <th></th>
+<tr>
+
+
+{{#each results}} 
+<tr>
+    <td> {{this.ExerciseGoal}} </td>
+    <td class="p-2"> <a class= "text-decoration-none b-rounded b-1 m-2 p-1 b-black text-accent-dark bg-transparent hover:bg-white hover:raise-1-white" onClick="deleteGoal({{this.ExerciseID}})"> Delete Goal</a> </td>
+</tr>
+{{/each}}
+
+</table>
+
+
+<script>
+  function deleteGoal(id) {
+    $.ajax({
+      url: '/trainers/' + id,
+      type: 'DELETE',
+      success: function(result) {
+        window.location.reload(true);
+      }
+    })
+  }
+</script>

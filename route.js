@@ -560,6 +560,19 @@ app.get('/srchclients',function(req,res){                // render search client
 });
 
 
+app.get('/exerciseplans',function(req,res){                // render search clients page when you visit mngclients url
+  var context = {};
+  mysql.pool.query(getAllExercisePlans, function(err, rows, fields) {
+    if (err) {
+      next(err);
+      return;
+    }
+    context.results = rows;
+    res.render('exerciseplans', context);
+  });
+});
+
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');
