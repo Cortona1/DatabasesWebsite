@@ -6,7 +6,7 @@
 
 <section class="container">
 <h2 class="m-t-5"> Assign/Update Client's trainer </h2>
-<form action="post" id="myForm">
+<form method="post" id="myForm">
 
 <div class="grid-12 md:grid-6-6 m-t-5">
   <label for="name">Select the name of the Client:</label>
@@ -29,7 +29,7 @@
       <option value="{{this.TrainerID}}">{{this.TrainerFN}} {{this.TrainerLN}}</option>
       {{/each}}
     </select>
-
+  </div>
 <br>
 <br>
  <div class="place-x-end">
