@@ -71,30 +71,31 @@ CREATE TABLE `ClientPlans` (
 -- Insert pre-populated data into the database
 
 
--- Insert certifications into table
+-- Insert three default certifications into the Certifications table
 
 INSERT INTO Certifications(CertTitle) VALUES ("NASM"),("ACE"),("ISSA");
 
--- Insert clients into table
+-- Insert three default clients into the Clients table
 INSERT INTO Clients (ClientEmail, ClientLN, ClientFN) VALUES ('JandJ@gmail.com', 'Joseph', 'John'),
  ('JandG@gmail.com', 'Glafira', 'Jervis'),
  ('TandB@gmail.com', 'Blanco', 'Tracy');
 
 
 
--- Insert Trainers into table
+-- Insert three default Trainers into the Trainers table
 INSERT INTO Trainers (TrainerLN, TrainerFN, TrainerEmail) VALUES ('Romero', 'Boyd', 'bromero@gmail.com'),
  ('Rodriguez', 'Christina', 'crodriguez@gmail.com'), ('Kohl', 'Josh', 'jkhol@gmail.com');
 
 
--- Insert assigned trainers to clients
+-- Update the three default clients by assigning the TrainerID fk from the three default trainers
 
 UPDATE Clients SET TrainerID = (SELECT TrainerID from Trainers WHERE TrainerLN ='Romero' AND TrainerFN = 'Boyd') WHERE (ClientEmail = 'JandJ@gmail.com');
 UPDATE Clients SET TrainerID = (SELECT TrainerID from Trainers WHERE TrainerLN ='Rodriguez' AND TrainerFN = 'Christina') WHERE (ClientEmail = 'JandG@gmail.com');
 UPDATE Clients SET TrainerID = (SELECT TrainerID from Trainers WHERE TrainerLN ='Kohl' AND TrainerFN = 'Josh') WHERE (ClientEmail = 'TandB@gmail.com');
 
 
--- Insert data into trainercerts table
+-- Insert three default certification assignments into TrainerCerts table which is an intersection table for facilitiing the many to many relationship between
+-- Trainers and Certifications
 
 INSERT INTO TrainerCerts (TrainerID, CertID) VALUES ((SELECT TrainerID from Trainers WHERE TrainerLN ='Romero' AND TrainerFN = 'Boyd'),
  (SELECT CertID from Certifications WHERE CertTitle = 'NASM'));
@@ -106,12 +107,13 @@ INSERT INTO TrainerCerts (TrainerID, CertID) VALUES ((SELECT TrainerID from Trai
  (SELECT CertID from Certifications WHERE CertTitle = 'ISSA'));
 
 
--- Insert exercise goals
+-- Insert three default plans into the ExercisePlans table
 
 INSERT INTO ExercisePlans (ExerciseGoal) VALUES ('Gain muscle mass'), ('Lose fat'), ('Gain muscle but lose fat');
 
 
--- Insert into ClientPlans
+-- Insert three default relationships into ClientPlans between the Clients and Exercise Plans table
+
 INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES ((SELECT ClientID from Clients WHERE ClientLN = 'Joseph' AND ClientFN = 'John'),
  (SELECT ExerciseID FROM ExercisePlans WHERE ExerciseGoal = 'Gain muscle mass'));
 
