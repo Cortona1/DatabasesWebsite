@@ -594,8 +594,12 @@ app.get('/exerciseplans',function(req,res){                // render search clie
 
 app.post('/exerciseplans', function(req, res) {
   var context = {};
-  console.log(req.body);
-  mysql.pool.query(insertExercisePlan, [req.body.ExerciseTitle], function(err, rows, fields) {
+
+
+
+
+  if (req.body.ExerciseTitle !== ""){
+    mysql.pool.query(insertExercisePlan, [req.body.ExerciseTitle], function(err, rows, fields) {
     mysql.pool.query(getAllExercisePlans, function(err, rows, fields) {
       if (err) {
         next(err);
@@ -604,8 +608,16 @@ app.post('/exerciseplans', function(req, res) {
       context.results = rows;
       console.log(context);
       res.render('exerciseplans', context);
-    })
-  })
+    });
+  });}
+
+  else {
+    mysql.pool.query(getAllExercisePlans, function(err, rows, fields) {
+    context.results = rows;
+    console.log(context);
+    res.render('exerciseplans', context);
+    });
+  }
 })
 
 
