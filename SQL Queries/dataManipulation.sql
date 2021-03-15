@@ -1,4 +1,5 @@
-
+-- This file contains all the used data manipulation queries for various things such as searching, inserting, updating, deleting, etc.
+-- Names starting with a colon : denote input fields that would be recieved by the backend of the site.
 
 
 -- Inserting into table queries
@@ -30,117 +31,106 @@ INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES (:ClientID, :ExerciseID);
 
 
 
--- Manipulation queries for searching for clients by client's columns on search clients page
+-- Delete Queries
 
+-- Deleting certifications from TrainerCerts intersection table and then deleting certifications from the Certification table itself
 
--- Select clients by first name
-SELECT * FROM Clients WHERE ClientFN = ':ClientFN';
-
--- Select clients by last name
-SELECT * FROM Clients WHERE ClientLN = ':ClientLN';
-
--- Select clients by email
-SELECT * FROM Clients WHERE ClientEmail = ':ClientEmail';
-
--- Select clients by assigned Trainer
-SELECT * FROM Clients WHERE Clients.TrainerID = (SELECT TrainerID FROM Trainers WHERE TrainerFN = ':TrainerFN' and TrainerLN = ':TrainerLN')
-
-
--- Manipulation queries for removing certifications
-
-DELETE FROM TrainerCerts WHERE TrainerCerts.CertID = (SELECT CertID FROM Certifications WHERE CertTitle = ':CertTitle');
+DELETE FROM TrainerCerts WHERE TrainerCerts.CertID = :CertID AND TrainerID = :TrainerID;
 DELETE FROM Certifications WHERE CertTitle = ':CertTitle';
 
-
-
--- Manipulation queries for removing / assigning trainer from /to client
-
-UPDATE Clients
-SET Clients.TrainerID  = Null
-WHERE Clients.TrainerID = (SELECT TrainerID FROM Trainers WHERE TrainerFN = ':TrainerFN' AND TrainerLN = ':TrainerLN');
-
-
-UPDATE Clients
-SET Clients.TrainerID  = (SELECT TrainerID FROM Trainers WHERE TrainerFN = ':TrainerFN' and TrainerLN = ':TrainerLN' AND TrainerEmail = ':TrainerEmail')
-WHERE ClientID = (SELECT ClientID FROM Clients WHERE ClientFN = ':ClientFN' AND ClientLN = ':ClientLN' AND ClientEmail = ':ClientEmail');
-
-
-
--- queries for selecting Trainers
-
-SELECT * FROM Trainers
-
-
--- queries for selecting Trainers in a table with their respective certification they have
-
-
-SELECT Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle FROM Trainers
-
-LEFT JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID
-
-LEFT JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID;
-
-
-
-
-
-
---Deleting Trainers
-
-
---Update Client's Trainer column to null if their trainer is the one being removed
-
-UPDATE Clients SET TrainerID = NULL WHERE Clients.TrainerID = :TrainerID; 
-
-
---Delete row in trainercerts where the trainerID is the trainer ID of the trainer being removed
-
-DELETE FROM TrainerCerts WHERE TrainerID = :TrainerID;
-
-
---Finally delete the trainer from trainers table where the id is the id of the trainer being removed
+-- Deleting a row from the Trainer table
 
 DELETE FROM Trainers WHERE TrainerID = :TrainerID;
 
 
+-- Deleting rows in the ClientPlans table which has a relationship between clients and exercise plans
 
--- Removing Cerification from Trainer
+DELETE FROM ClientPlans WHERE ClientPlans.ClientID = :ClientID;
 
-DELETE FROM TrainerCerts WHERE CertID = ? AND TrainerID = ?;
+-- Deleting a client form the Clients table
 
-
-
--- Deleting a certificaiton
-
-
---Delete the row in trianerCerts where certID is the id of the ceritfication to be deleted
-
-DELETE FROM TrainerCerts WHERE CertID = :CertID;
+DELETE FROM Clients WHERE Clients.ID = :ClientID;
 
 
---Delete the row in the certificaiton table where certid is the id of the certificaiton to be deleted
 
-DELETE FROM Certifications WHERE CertID = :CertID;
+-- Delete END
 
 
 
 
--- Selecting Clients info with full trainer name and their respective exercise plan
 
-SELECT Clients.ClientID, Clients.ClientEmail, Clients.ClientLN, Clients.ClientFN, Trainers.TrainerFN, Trainers.TrainerLN, ExercisePlans.ExerciseGoal 
-FROM Clients
-lEFT JOIN Trainers ON Clients.TrainerID = Trainers.TrainerID
-LEFT JOIN ClientPlans ON Clients.ClientID = ClientPlans.ClientID
+-- Update Queries
+
+
+-- Updating Clients table to set their assigned Trainer to Null
+UPDATE Clients
+SET Clients.TrainerID  = Null
+WHERE Clients.TrainerID = :TrainerID;
+
+-- Updating Clients table to set the TrainerID to a valid TrainerID FK from the Trainers table
+UPDATE Clients
+SET Clients.TrainerID  = :TrainerID
+WHERE ClientID = :ClientID;
+
+
+-- Update END
+
+
+
+-- Get Queries
+
+-- Select everything from the Certificaitons table
+SELECT * FROM Certifications;
+
+-- Select everything from the Trainers table
+SELECT * FROM Trainers;
+
+-- Select everything from the Exercise Plans table
+SELECET * FROM ExercisePlans;
+
+-- Select ClientID, ClientEmail, ClientLN, and ClientFN from the clients table and TrainerLN, TrianerFN, TrainerEmail from Trainers
+-- and CertTitle from the Certifications table through a left join that combines these three tables into one
+
+SELECT Clients.ClientID, Clients.ClientEmail, Clients.ClientLN, Clients.ClientFN, Trainers.TrainerFN, Trainers.TrainerLN, ExercisePlans.ExerciseGoal
+FROM Clients 
+lEFT JOIN Trainers ON Clients.TrainerID = Trainers.TrainerID 
+LEFT JOIN ClientPlans ON Clients.ClientID = ClientPlans.ClientID 
 LEFT JOIN ExercisePlans ON ClientPlans.ExerciseID = ExercisePlans.ExerciseID;
 
 
---Removing a client's trainer
+-- Select TrainerID, TrainerFN, TrainerLN, and TrainerEmail from Trainers and CertID and CertTitle from Certifications table and combine
+-- them into one table via left joins 
 
-UPDATE Clients SET TrainerID = NULL WHERE Clients.ClientID = ?;
+
+SELECT Trainers.TrainerID, Certifications.CertID, Trainers.TrainerFN, Trainers.TrainerLN, Trainers.TrainerEmail, Certifications.CertTitle 
+FROM Trainers 
+LEFT JOIN TrainerCerts ON Trainers.TrainerID = TrainerCerts.TrainerID
+LEFT JOIN Certifications ON TrainerCerts.CertID = Certifications.CertID';
 
 
--- Delete a client
 
-DELETE FROM ClientPlans WHERE ClientPlans.ClientID = ?;
-DELETE FROM Clients WHERE Clients.ClientID = ?;
+-- Searching for Client through different filters queries
+
+-- Get client by last name
+
+SELECT * FROM Clients WHERE ClientLN = :ClientLN;
+
+-- Get client by first name
+
+SELECT * FROM Clients WHERE ClientFN = :ClientFN;
+
+-- Get client by their email
+
+SELECT * FROM Clients WHERE ClientEmail = :ClientEmail;
+
+-- Get Client by their Trainer by querying the FK for Trainers in the Clients table via a subquery
+
+SELECT * FROM Clients WHERE Clients.TrainerID = (SELECT TrainerID FROM Trainers WHERE TrainerFN = :TrainerFN and TrainerLN = :TrainerLN);
+
+-- Get END
+
+
+
+
+
 
