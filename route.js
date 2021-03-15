@@ -138,9 +138,13 @@ app.get('/clients',function(req,res){
 });
 
 app.post('/clients', function(req, res) {
-  console.log(req.body);
-  mysql.pool.query(insertClient, [req.body.Fname, req.body.Lname, req.body.email], function(err, rows, fields) {
-    var context = {};
+
+  console.log("gothere");
+  var context = {};
+
+
+  if (req.body.Fname !== "" && req.body.Lname !== "" && req.body.email !== "") {                                      // validation for empty data inputs
+    mysql.pool.query(insertClient, [req.body.Fname, req.body.Lname, req.body.email], function(err, rows, fields) {
     mysql.pool.query(getAllClients, function(err, rows, fields) {
       if (err) {
         next(err);
@@ -154,7 +158,16 @@ app.post('/clients', function(req, res) {
       console.log(JSON.stringify(err));
       return;
     }
-  });
+  });}
+
+
+ else{
+  mysql.pool.query(getAllClients, function(err, rows, fields) {
+      context.results = rows;
+      console.log(JSON.stringify(context));
+      res.render('clients', context);
+    });
+ }
 });
 
 app.delete('/clients/:ClientID', function(req, res) {
