@@ -86,7 +86,7 @@ SELECT * FROM Certifications;
 SELECT * FROM Trainers;
 
 -- Select everything from the Exercise Plans table
-SELECET * FROM ExercisePlans;
+SELECT * FROM ExercisePlans;
 
 -- Select ClientID, ClientEmail, ClientLN, and ClientFN from the clients table and TrainerLN, TrianerFN, TrainerEmail from Trainers
 -- and CertTitle from the Certifications table through a left join that combines these three tables into one
