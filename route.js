@@ -92,9 +92,15 @@ function certPage(req,res){
 }
 
 app.post('/certs', function(req, res){
+
+    if (req.body.name !== "") {
     mysql.pool.query(insertCert, [req.body.name], function(err,rows,fields){
     certPage(req,res);
-    })
+    });}
+
+    else{
+      certPage(req,res);
+    }
 })
 
 
@@ -305,10 +311,15 @@ function trainerPage(req,res){
 
 
 app.post('/trainers', function(req, res){
-    console.log(req.body);
+
+    if (req.body.TrainerFN !== "" && req.body.TrainerLN !== "" && req.body.TrainerEmail !== "") {
     mysql.pool.query(insertTrainer, [req.body.TrainerLN, req.body.TrainerFN,req.body.TrainerEmail], function(err,rows,fields){
     trainerPage(req,res);
-    })
+    });}
+
+    else {
+      trainerPage(req,res);
+    }
 })
 
 app.get('/mngtrainers',function(req,res){                // render manage trainers page when you visit mngclients url
