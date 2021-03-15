@@ -1,34 +1,32 @@
 
+
+
+-- Inserting into table queries
+
 -- Trainers table
-INSERT INTO `Trainers` ( TrainerLN, TrainerFN, TrainerEmail)
-VALUES (:trainerLNInput, :trainerFNInput, :trainerEmailInput);
-DELETE FROM Trainers WHERE (TrainerLN = :trainerLNInput, TrainerFN = :trainerFNInput, TrainerEmail = :trainerEmailInput)
+INSERT INTO `Trainers` (TrainerLN, TrainerFN, TrainerEmail)
+VALUES (:TrainerLN, :TrainerFN, :TrainerEmail);
 
 -- Clients table
-INSERT INTO `Clients` (ClientID, ClientEmail, ClientLN, ClientFN, TrainerID)
-VALUES (:clientEmailInput, :clientLNInput, :clientFNInput, :trainerIDInput);
-DELETE FROM Clients WHERE (ClientEmail = :clientEmailInput, ClientLN = :clientLNInput, ClientFN = clientFNInput, TrainerID = :trainerIDInput)
+INSERT INTO `Clients` (ClientFN, ClientLN, ClientEmail)
+VALUES (:ClientFN, :ClientLN, :ClientEmail);
 
 -- Certifications table
 INSERT INTO `Certifications` (CertTitle)
-VALUES (:certTitleInput)
-DELETE FROM Certifications WHERE CertTitle = :certTitleInput
+VALUES (:CertTitle);
 
 -- TrainerCerts table
 INSERT INTO `TrainerCerts` (TrainerID, CertID)
-VALUES ((SELECT TrainerID from Trainers WHERE TrainerFN=:trainerFNInput AND TrainerLN=:trainerLNInput), (SELECT CertID from certifications WHERE CertTitle = :certTitleInput))
+VALUES (:TrainerID, :CertID);
 
 -- ExercisePlans table
 INSERT INTO ExercisePlans (ExerciseGoal) VALUES (:ExerciseGoal);
-INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES ((SELECT ClientID from Clients WHERE ClientLN = :ClientLN AND ClientFN = :ClientFN),
- (SELECT ExerciseID FROM ExercisePlans WHERE ExerciseGoal = :ExerciseGoal));
 
 -- ClientPlans table
-INSERT INTO `ClientPlans` (ClientID, ExerciseID)
-VALUES ((SELECT ClientID from Clients WHERE ClientFN=:clientFNInput AND ClientLN=:clientLNInput), (SELECT ExerciseID FROM exerciseplans WHERE ExerciseGoal = :exerciseGoalInput))
+INSERT INTO ClientPlans (ClientID, ExerciseID) VALUES (:ClientID, :ExerciseID);
 
 
-
+-- Inserting END
 
 
 
